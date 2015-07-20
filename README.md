@@ -1,4 +1,6 @@
 # Viper Probe Droid
+[ ![Build Status] [travis-image] ] [travis]
+[ ![License] [license-image] ] [apache2]
 
 ## The Vision
 At Carbonite, the Digital Analytics team is responsible for handling the
