@@ -1,6 +1,6 @@
 # Viper Probe Droid
 [ ![Build Status] [travis-image] ] [travis]
-[ ![License] [license-image] ] [apache2]
+[ ![License] [license-image] ] [license]
 
 ## The Vision
 At Carbonite, the Digital Analytics team is responsible for handling the
@@ -20,3 +20,9 @@ from other teams throughout the company we instrument the events.
 # LICENSE
 Copyright (c) 2015, Robert G. Johnson Jr. @Oakensoul, Apache Version 2.0
 Copyright (c) 2015, [Carbonite](http://www.carbonite.com), Apache Version 2.0
+
+[travis]: http://travis-ci.org/carbonite-analytics/viper-probe-droid
+[travis-image]: https://travis-ci.org/carbonite-analytics/viper-probe-droid.png?branch=master
+
+[license]: http://opensource.org/licenses/Apache-2.0
+[license-image]: http://img.shields.io/badge/license-simplified--bsd-blue.svg?style=flat
