@@ -25,4 +25,4 @@ Copyright (c) 2015, [Carbonite](http://www.carbonite.com), Apache Version 2.0
 [travis-image]: https://travis-ci.org/carbonite-analytics/viper-probe-droid.png?branch=master
 
 [license]: http://opensource.org/licenses/Apache-2.0
-[license-image]: http://img.shields.io/badge/license-simplified--bsd-blue.svg?style=flat
+[license-image]: https://img.shields.io/hexpm/l/plug.svg?style=flat
