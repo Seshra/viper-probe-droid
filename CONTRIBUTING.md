@@ -7,23 +7,16 @@ inspect and repurpose for your own use, just let us know. If there's a way to
 make this more extensible and less Carbonite specific, we'd be interested to
 hear your thoughts.
 
-## The Vision
-Before you can contribute to the project, it's best to understand what the project
-is trying to accomplish and what it is not.
+## Requirements
+This project uses Ansible and Vagrant to spawn the development environment. You
+will need to have [Vagrant](http://vagrantup.com) and [VirtualBox](http://virtualbox.com)
+installed in order to contribute.
 
-At Carbonite, the Digital Analytics team is responsible for handling the
-management of our Tracking Beacons as well as our Event Analytics Platform. For
-managing our tracking beacons we use [Tealium IQ](http://tealium.com). We use
-the [Snowplow JavaScript Tracker](https://github.com/snowplow/snowplow-javascript-tracker)
-to send events to our Event Analytics Platform. In addition to the standard
-events provided by Snowplow, we include in this project a number of other
-event types.
+### Vagrant VBGuest Plugin
+We also recommend using the vagrant plugin "vagrant-vbguest" to prevent the
+VirtualBox guest additions from getting out of sync.
 
-In order to keep the "ownership" of Analytics to our team, we have created this
-project so that the various web teams in Carbonite don't have to be responsible
-for managing the beacons and events themselves. We work with those teams to
-make sure that the DOM has the proper markdown. Then upon their request, or
-from other teams throughout the company we instrument the events.
+$ vagrant plugin install vagrant-vbguest
 
 ## The Basics
 This project uses the "GitHub" branching model. If you'd like to read more on
