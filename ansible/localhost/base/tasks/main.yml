@@ -1,0 +1,22 @@
+---
+- name: Link all of the NPM modules
+  sudo: yes
+  command: npm link {{item}}
+  args:
+    chdir: /vagrant
+    creates: /vagrant/node_modules/{{item}}
+  with_items:
+    - gulp
+    - gulp-rename
+    - del
+    - gulp-concat
+    - gulp-livereload
+    - gulp-uglify
+    - gulp-minify-css
+    - gulp-ruby-sass
+    - gulp-cache
+    - gulp-notify
+    - gulp-imagemin
+    - gulp-jshint
+    - gulp-autoprefixer
+    - gulp-util
