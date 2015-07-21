@@ -16,6 +16,12 @@ var gulp = require('gulp');
 
 gulp.task('default', function() {
   var gutil = require('gulp-util');
+});
 
-  gutil.log('Hello world!');
+gulp.task('travis', function() {
+
+});
+
+gulp.task('test', function() {
+
 });
