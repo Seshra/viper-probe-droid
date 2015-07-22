@@ -1,4 +1,3 @@
-
 //read cookie and creates readable, individual cookie key:value pairs
 (function(){
     var cookies;
@@ -38,7 +37,6 @@ if (location.search.indexOf("viper=prod") && (vipCookie === "dev" || vipCookie =
 } else if (vipCookie === "prod"){
 	vipEnv = "prod";
 }
-
 
 //Adds "utag_data" if none exists and attaches script tag to page just before </body> tag to fire utag.js
 window.onload = function() {  
