@@ -26,16 +26,7 @@ the [GitHub Flow](http://scottchacon.com/2011/08/31/github-flow.html) and the
 
 ## Running Tests
 The most important part of changes are their tests. Every new feature or issue
-being fixed should have a matching test. This project uses PHPUnit, CasperJS
-and Phantom.
-
-### PHPUnit Tests
-* Make sure you have PHPUnit installed with an updated version
-* PHPUnit tests will be located in `test/phpunit/`
-
-### CasperJS Tests
-* Make sure you have CasperJS and Phantom installed with updated versions
-* CasperJS tests will be located in `test/casperjs/`
+being fixed should have a matching test.
 
 ## <a name="bug-reports"></a>Bug Reports
 When the inevitable happens and you discover a bug in the documentation or the
