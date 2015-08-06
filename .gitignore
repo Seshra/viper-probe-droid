@@ -41,6 +41,7 @@ tests/pages/integration.html
 tests/tag.min.js
 
 dist/*
+*-compiled.*
 
 # Vagrant
 .vagrant
