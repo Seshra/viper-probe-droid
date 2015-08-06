@@ -42,6 +42,8 @@ tests/tag.min.js
 
 dist/*
 *-compiled.*
+#Location for temporary files
+.scratch
 
 # Vagrant
 .vagrant
