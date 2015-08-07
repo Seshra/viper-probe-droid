@@ -1,9 +1,9 @@
+# editors
+.idea
+
 # Logs
 logs
 *.log
-
-# JetBrains
-.idea
 
 # Runtime data
 pids
@@ -39,6 +39,11 @@ node_modules
 tests/pages/*.js
 tests/pages/integration.html
 tests/tag.min.js
+
+dist/*
+*-compiled.*
+#Location for temporary files
+.scratch
 
 # Vagrant
 .vagrant
