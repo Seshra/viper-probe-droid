@@ -1,11 +1,10 @@
-// Karma configuration
-// Generated on Wed Jul 29 2015 12:04:55 GMT-0700 (PDT)
+
 
 module.exports = function(config) {
   config.set({
 
     // base path that will be used to resolve all patterns (eg. files, exclude)
-    basePath: '../src/js),
+    basePath: '../',
 
 
     // frameworks to use
@@ -15,18 +14,20 @@ module.exports = function(config) {
 
     // list of files / patterns to load in the browser
     files: [
-      '*.js','../../test/*.js'
+      '../src/js/viper.js','../../test/viper.spec.js'
     ],
 
 
     // list of files to exclude
     exclude: [
+        'karma.conf.js'
     ],
 
 
     // preprocess matching files before serving them to the browser
     // available preprocessors: https://npmjs.org/browse/keyword/karma-preprocessor
     preprocessors: {
+      //'*.js' : ['coverage']
     },
 
 

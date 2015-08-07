@@ -80,9 +80,8 @@ describe("To test whether or not the launch() function fired properly",function(
     it("and test if the Tealium GET request was executed properly",function(){
 
         /*jasmine.Ajax.requests.            {
-            "status": 200,
-            "responseText": 'in spec response'*/
+         "status": 200,
+         "responseText": 'in spec response'*/
 
 
     })
-})
