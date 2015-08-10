@@ -8,6 +8,7 @@ script:
 - gulp travis
 deploy:
   provider: s3
+  acl: public_read
   local_dir: dist
   skip_cleanup: true
   access_key_id:
