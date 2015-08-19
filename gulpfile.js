@@ -20,7 +20,7 @@ var uglify = require('gulp-uglify');
 var size = require('gulp-size');
 
 gulp.task('default', function() {
-  var gutil = require('gulp-util');
+    var gutil = require('gulp-util');
 });
 
 gulp.task('travis', ['build'], function() {
@@ -32,26 +32,25 @@ gulp.task('test',['lint','mocha'],function() {
 });
 
 gulp.task('lint', function () {
-  return gulp.src('./src/js/viper.js')
-      .pipe(jshint('.jshintrc'))
-      .pipe(jshint.reporter('jshint-stylish'));
+    return gulp.src('./src/js/viper.js')
+        .pipe(jshint('.jshintrc'))
+        .pipe(jshint.reporter('jshint-stylish'));
 });
 
 gulp.task('mocha', function () {
-  gulp.src('./src/js/viper.js')
-      .pipe(mocha({ reporter: 'list' }));
+    gulp.src('./src/js/viper.js')
+        .pipe(mocha({ reporter: 'list' }));
 });
 
 gulp.task('clean', function () {
-  return gulp.src('./dist', { read: false })
-      .pipe(clean());
+    return gulp.src('./dist', { read: false })
+        .pipe(clean());
 });
 
 gulp.task('build', ['test', 'clean'], function () {
-  return gulp.src('./src/js/viper.js')
-      .pipe(gulp.dest('./dist'))
-      .pipe(uglify())
-      .pipe(size())
-      .pipe(gulp.dest('./dist'));
+    return gulp.src('./src/js/viper.js')
+        .pipe(gulp.dest('./dist'))
+        .pipe(uglify())
+        .pipe(size())
+        .pipe(gulp.dest('./dist'));
 });
-

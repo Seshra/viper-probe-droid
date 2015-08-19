@@ -1,3 +1,6 @@
+var viper_lib = require('../src/js/viper');
+
+
 describe("To test the function declarations",function(){
 
     describe("To test the setCookie function",function(){
@@ -56,28 +59,28 @@ describe("To test the function declarations",function(){
     })
 })
 
-describe("To test whether or not the launch() function fired properly",function(){
+describe("To test whether or not the launch() function fired properly",function() {
 
-    it("and the cookie was written by the launch function",function(){
+    it("and the cookie was written by the launch function", function () {
 
         var cookie = document.cookie;
         expect(cookie.indexOf('viper')).not.toEqual(-1);
 
     })
 
-    it("and the div tag is created",function(){
+    it("and the div tag is created", function () {
 
         expect(document.getElementById("viper")).not.toBeNull()
 
     })
 
-    it("and the Tealium script is created and placed in the div tag",function(){
+    it("and the Tealium script is created and placed in the div tag", function () {
 
         expect(document.getElementById("viper_tealium")).not.toBeNull()
 
     })
 
-    it("and test if the Tealium GET request was executed properly",function(){
+    it("and test if the Tealium GET request was executed properly", function () {
 
         /*jasmine.Ajax.requests.            {
          "status": 200,
@@ -85,3 +88,4 @@ describe("To test whether or not the launch() function fired properly",function(
 
 
     })
+})
