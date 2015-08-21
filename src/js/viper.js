@@ -6,6 +6,15 @@ var viper = {
         var expires = "expires=" + d.toUTCString();
         document.cookie = cname + "=" + cvalue + "; " + expires;
     },
+    contains : function(array, obj){
+    var i = array.length;
+    while (i--) {
+        if (array[i] === obj) {
+            return true;
+        }
+    }
+    return false;
+    },
     //Adds any readable cookies to the viper object as viper.cp.xx
     cookieToObj : function() {
         if (document.cookie) {
@@ -27,8 +36,10 @@ var viper = {
             viper.qp = {};
             for (var i = 0; i < qs.length; i++) {
                 qsp = qs[i].split('=');
+                if (viper.contains(viper.wl, qsp[0]) === true) {
                 viper.qp[qsp[0]] = qsp[1];
-                viper.setCookie(qsp[0],qsp[1]);
+                viper.setCookie("viper_"+qsp[0], qsp[1]);
+            }
             }
         }
     },
@@ -47,18 +58,39 @@ var viper = {
         }
     },
     //Function to retrieve any value from Cookies, Query String or Meta tags written to the viper object above.
-    //proper types are "cookie", "meta" or "querystring"
+    //proper types are "cookie", "meta",  "dom" or "querystring"
     retrieve : function (type, name) {
         var t = "";
+        if (type.match(/(^)(base)($)/i)){t = "";}
         if (type.match(/(^)(cookie)($)/i)){t = "cp";}
         if (type.match(/(^)(meta)($)/i)){t = "meta";}
         if (type.match(/(^)(qp|querystring|query\ string)($)/i)){t = "qp";}
+        if (type.match(/(^)(dom)($)/i)){t = "dom";}
         if (t === ""){return viper[name];}else{return viper[t][name];}
     },
+    snowplow : function(p,l,o,w,i,n,g){
+        if(!p[i]){p.GlobalSnowplowNamespace=p.GlobalSnowplowNamespace||[];
+            p.GlobalSnowplowNamespace.push(i);
+            p[i]=function(){
+                (p[i].q=p[i].q||[]).push(arguments);    };
+            p[i].q=p[i].q||[];
+            n=l.createElement(o);
+            g=l.getElementsByTagName(o)[0];
+            n.async=1;
+            n.src=w;g.parentNode.insertBefore(n,g);}
+    },
     category : utag_data.category,
-    url :
-    application: "mailstore",
-    environment: "",
+    dom : {
+        url : document.URL,
+        domain : document.domain,
+        query_string : location.search,
+        referrer: document.referrer,
+        pathname : location.pathname,
+        title : document.title,
+    },
+    application : "mailstore",
+    environment : "",
+    wl : ["environment","utm_source","utm_medium","utm_campaign","utm_content"],
     launch: function () {
         viper.qpToObj();
         viper.cookieToObj();
@@ -71,6 +103,19 @@ var viper = {
         if (this.qp.viper){this.environment = this.qp.viper;}
         //Set Cookie to the environment value
         if (this.cp.viper !== this.environment){this.setCookie("viper", this.environment);}
+
+        //creating the Snowplow script tag and inserting it at the bottom of the body tag
+        viper.snowplow(window,document,"script","//d1qbbgtcslwdbx.cloudfront.net/2.2.0/sp.js","snowplow");
+
+        //Starting the Snowplow tracking script
+        window.snowplow('newTracker', 'co', 's-threads.analytics.carbonite.com', {
+            appId: 'carbonite',
+            platform: 'web'
+        });
+        window.snowplow('enableActivityTracking', 30, 30);
+        window.snowplow('enableLinkClickTracking');
+        window.snowplow('enableFormTracking');
+        window.snowplow('trackPageView', false, null);
 
         //Adding div tag
         var div = document.createElement("div");
