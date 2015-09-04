@@ -109,13 +109,20 @@ var viper = {
 
         //Starting the Snowplow tracking script
         window.snowplow('newTracker', 'co', 's-threads.analytics.carbonite.com', {
-            appId: 'carbonite',
+            appId: 'mailstore-prod',
             platform: 'web'
         });
         window.snowplow('enableActivityTracking', 30, 30);
         window.snowplow('enableLinkClickTracking');
         window.snowplow('enableFormTracking');
         window.snowplow('trackPageView', false, null);
+
+        //Calling ms_viper_config.js file
+        var b = document.createElement("script");
+        b.setAttribute("id", "viper_config");
+        b.src = '//viper.analytics.carbonite.com/ms_viper_config.js';
+        b.type = 'text/javascript';
+        document.body.appendChild(b);
 
         //Adding div tag
         var div = document.createElement("div");
