@@ -38,4 +38,34 @@ In the launch() function, the code block that is used to determine the environme
 **Fixes:**<br>
 None
 
+========================================================================================================================
 
+###version 0.03
+###Release Notes
+
+**Overview:**<br>
+In version 0.03 of viper.js, we are adding functionality to the 0.02 version of the **viper.js** which fires a secondary config JS file.  
+
+**Release Date:**<br>
+v0.01   August 9, 2015<br>
+v0.02   August 24, 2015<br>
+v0.03   September 8, 2015
+
+**Implementation Guide:**<br>
+The Implementation Guide can be found on GitHub at [https://github.com/carbonite-analytics/viper-probe-droid/blob/master/README.md](https://github.com/carbonite-analytics/viper-probe-droid/blob/master/README.md)
+
+**Technical Documentation:**
+Technical Documentation can be found on GitHub at []()
+
+**Additions:**<br>
+In version 0.03, I added a code block that inserts a script tag into the page that then calls a x_viper_config.js (x is a placeholder for the hosting site) file.  This x_viper_config file contains all of the site-specific code that consist of conversion functions, lookup tables and anything that is run only for that one site.<br> 
+The additions include:<br>
+
+**Removals:**<br>
+None
+
+**Changes:**<br>
+Removed the hard-coded value for the `application` variable.  The value is now only set from the site itself, and nowhere in the **viper.js** file.
+
+**Fixes:**<br>
+None

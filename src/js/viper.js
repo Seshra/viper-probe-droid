@@ -88,7 +88,7 @@ var viper = {
         pathname : location.pathname,
         title : document.title,
     },
-    application : "mailstore",
+    application : "",
     environment : "",
     wl : ["environment","utm_source","utm_medium","utm_campaign","utm_content"],
     launch: function () {
@@ -117,10 +117,10 @@ var viper = {
         window.snowplow('enableFormTracking');
         window.snowplow('trackPageView', false, null);
 
-        //Calling ms_viper_config.js file
+        //Calling the *_viper_config.js file based on viper.application value
         var b = document.createElement("script");
         b.setAttribute("id", "viper_config");
-        b.src = '//viper.analytics.carbonite.com/ms_viper_config.js';
+        b.src = '//viper.analytics.carbonite.com/'+viper.application+'_viper_config.js';
         b.type = 'text/javascript';
         document.body.appendChild(b);
 
