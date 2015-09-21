@@ -126,12 +126,12 @@ var viper = {
 
         //Calling the *_viper_config.js file based on viper.application value
         if (viper.contains(viper.app_wl, viper.application) === true) {
-            var b = document.createElement("script");
-            b.setAttribute("id", "viper_config");
+            var conf = document.createElement("script");
+            conf.setAttribute("id", "viper_config");
             //b.src = '//viper.analytics.carbonite.com/' + viper.application + '_viper_config.js';
-            b.src = '//viper-test-pages.s3-website-us-east-1.amazonaws.com/js/' + viper.application + '_viper_config.js';
-            b.type = 'text/javascript';
-            document.body.appendChild(b);
+            conf.src = '//viper-test-pages.s3-website-us-east-1.amazonaws.com/js/' + viper.application + '_viper_config.js';
+            conf.type = 'text/javascript';
+            document.body.appendChild(conf);
         }
 
         //Adding div tag
