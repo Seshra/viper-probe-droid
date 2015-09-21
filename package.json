@@ -39,7 +39,7 @@
     "jasmine": "^2.3.2",
     "jshint": "^2.8.0",
     "jshint-stylish": "^2.0.1",
-    "karma": "^0.13.9",
+    "karma": "0.13.x",
     "karma-cli": "^0.1.0"
   },
   "scripts": {

@@ -8,7 +8,7 @@ This file contains all of the site-specific code for Mailstore.com.  This inform
 */
 
 //Snowplow Conversions
-
+    /*
     //Trial Download Conversion
     if (~viper.dom["pathname"].indexOf("/de/mailstore-server-trial-start.aspx")){
         window.snowplow("trackUnstructEvent", [{
@@ -60,4 +60,4 @@ if (~viper.dom["pathname"].indexOf("/en/mailstore-server-trial-start.aspx")){
             }
         }
     ])
-};
+};*/
