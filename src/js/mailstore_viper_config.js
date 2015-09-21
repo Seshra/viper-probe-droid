@@ -4,6 +4,25 @@
 
 /*Snowplow
 v1.0
+*/
+
+
+//Starting the Snowplow tracking script
+
+window.snowplow('newTracker', 'co', 's-threads.analytics.carbonite.com', {
+appId: 'mailstore-prod',
+platform: 'web',
+cookieDomain: ".mailstore.com",
+cookieName: "_holocron_"
+});
+
+ window.snowplow('enableActivityTracking', 30, 30);
+ window.snowplow('enableLinkClickTracking');
+ window.snowplow('enableFormTracking');
+ window.snowplow('trackPageView', false, null);
+
+
+/*
 This file contains all of the site-specific code for Mailstore.com.  This information may contain conversion events,
 */
 

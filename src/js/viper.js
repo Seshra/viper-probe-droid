@@ -39,7 +39,7 @@ var viper = {
             var qsp;
             for (var i = 0; i < qs.length; i++) {
                 qsp = qs[i].split('=');
-                if (viper.contains(viper.wl, qsp[0]) === true) {
+                if (viper.contains(viper.qs_wl, qsp[0]) === true) {
                 viper.qp[qsp[0]] = qsp[1];
                 viper.setCookie("viper_"+qsp[0], qsp[1]);
             }
@@ -97,9 +97,10 @@ var viper = {
     },
     application : "",
     environment : "",
-    wl : ["environment","utm_source","utm_medium","utm_campaign","utm_content"],
+    qs_wl : ["environment","utm_source","utm_medium","utm_campaign","utm_content","Category","Page_ID"],
     app_wl : ["mailstore","pardot","test-pardot"],
 
+//***************************************************************************************************************
 
     launch: function () {
         viper.qpToObj();
@@ -123,35 +124,15 @@ var viper = {
         //creating the Snowplow script tag and inserting it at the bottom of the body tag
         viper.snowplow(window, document, "script", "//d1qbbgtcslwdbx.cloudfront.net/2.2.0/sp.js", "snowplow");
 
-        //Starting the Snowplow tracking script
-        window.snowplow('newTracker', 'co', 's-threads.analytics.carbonite.com', {
-            appId: 'mailstore-prod',
-            platform: 'web'
-        });
-        window.snowplow('enableActivityTracking', 30, 30);
-        window.snowplow('enableLinkClickTracking');
-        window.snowplow('enableFormTracking');
-        window.snowplow('trackPageView', false, null);
-
         //Calling the *_viper_config.js file based on viper.application value
         if (viper.contains(viper.app_wl, viper.application) === true) {
             var b = document.createElement("script");
             b.setAttribute("id", "viper_config");
             //b.src = '//viper.analytics.carbonite.com/' + viper.application + '_viper_config.js';
-            b.src = 'http://viper-test-pages.s3-website-us-east-1.amazonaws.com/js/pardot_viper_config.js'
+            b.src = '//viper-test-pages.s3-website-us-east-1.amazonaws.com/js/' + viper.application + '_viper_config.js';
             b.type = 'text/javascript';
             document.body.appendChild(b);
         }
-
-        /*//Calling the pardot_viper_config.js file based on Domain value
-        if (viper.dom.pathname.indexOf("pardot_test.html") > -1) {
-             var b = document.createElement("script");
-            b.setAttribute("id", "pardot_viper_config");
-            //b.src = '//viper.analytics.carbonite.com/pardot_viper_config.js';
-            b.src = '//viper-test-pages.s3-website-us-east-1.amazonaws.com/js/pardot_viper_config.js'
-            b.type = 'text/javascript';
-            document.body.appendChild(b);
-        }*/
 
         //Adding div tag
         var div = document.createElement("div");
@@ -163,7 +144,7 @@ var viper = {
         //Adding Tealium inside div tag
         var b = document.createElement("script");
         b.setAttribute("id", "viper_tealium");
-        b.src = '//tags.tiqcdn.com/utag/carb/' + this.application + '/' + this.environment + '/utag.js';
+        b.src = '//tags.tiqcdn.com/utag/carb/' + viper.application + '/' + viper.environment + '/utag.js';
         b.type = 'text/javascript';
         b.async = true;
         document.getElementById('viper').appendChild(b);
