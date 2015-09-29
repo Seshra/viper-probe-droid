@@ -5,7 +5,7 @@ var clean = require('gulp-clean');
 var uglify = require('gulp-uglify');
 var size = require('gulp-size');
 var Server = require('karma').Server;
-//var karma = require('gulp-karma');
+var karma = require('karma');
 var gutil = require('gulp-util');
 
 //     sass = require('gulp-ruby-sass'),
