@@ -4,8 +4,8 @@ var mocha = require('gulp-mocha');
 var clean = require('gulp-clean');
 var uglify = require('gulp-uglify');
 var size = require('gulp-size');
-var Server = require('karma').Server;
 var karma = require('karma');
+var server = require('karma').Server;
 var gutil = require('gulp-util');
 
 //     sass = require('gulp-ruby-sass'),
@@ -20,7 +20,7 @@ var gutil = require('gulp-util');
 //     gutil = require('gulp-util'),
 //     del = require('del')
 
-gulp.task('default', ['lint','karma','clean','build','travis']);
+gulp.task('default', ['lint','test','clean','build','travis']);
 
 var testFiles = [
     'src/js/viper.js',
@@ -33,20 +33,29 @@ gulp.task('lint', function () {
         .pipe(jshint.reporter('jshint-stylish'));
 });
 
-gulp.task('karma', ['lint'], function() {
+
+
+gulp.task('test', ['lint'], function (done) {
+    new server({
+        configFile: __dirname + '/test/karma.conf.js',
+        singleRun: true
+    }, done).start();
+});
+/*
+gulp.task('test', ['lint'], function() {
     return gulp.src(testFiles)
         .pipe(karma({
             configFile: 'test/karma.conf.js',
             action: 'run'
         }))
-});
+});*/
 
-gulp.task('clean', ['karma'], function () {
+gulp.task('clean', ['test'], function () {
     return gulp.src('./dist', { read: false })
         .pipe(clean());
 });
 
-gulp.task('build', ['lint','karma', 'clean'], function () {
+gulp.task('build', ['lint','test', 'clean'], function () {
     return gulp.src('./src/js/viper.js')
         .pipe(uglify().on('error', gutil.log))
         .pipe(size())
