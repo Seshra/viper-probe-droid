@@ -1,25 +1,31 @@
-var viper_lib = require('../src/js/viper');
 
+describe("To test the function declarations:",function() {
 
-describe("To test the function declarations",function(){
+    describe("To test the setCookie function,", function () {
 
-    describe("To test the setCookie function",function(){
+        it("and verify that it is declared", function () {
 
-        it("and verify that it is declared",function() {
-
-            expect(viper.setCookie()).toBeDefined();
+            expect(typeof viper.setCookie).toBe("function");
 
         })
-
-        it("and that it can properly set a cookie",function(){
-
-            viper.setCookie("jasmineTest","jasmineTest")
-            expect(document.cookie.indexOf("jasmineTest=jasmineTest")).not.toEqual(-1)
-
-        })
-
     })
+})
 
+
+describe("To test the function declarations",function() {
+
+    describe("To test the setCookie function", function () {
+
+        it("and verify that it is declared", function () {
+
+            expect(typeof viper.contains).toBe("function");
+
+        })
+    })
+})
+
+
+/*
 
     describe("To test the contains function",function() {
 
@@ -158,3 +164,4 @@ describe("To test whether or not the launch() function fired properly",function(
 
     })
 })
+*/
