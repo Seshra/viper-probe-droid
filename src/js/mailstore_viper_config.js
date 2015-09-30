@@ -39,20 +39,19 @@ This file contains all of the site-specific code for Mailstore.com.  This inform
             [{
                 schema: "iglu:com.carbonite/user/jsonschema/1-0-0",
                 data: {
-                    locale: "German"
+                    locale: "Deutsch"
                 }
             },
-            {
-                schema: "iglu:com.carbonite/product/jsonschema/1-0-0",
-                data: {
-                    product_name: "server",
-                    product_group: "mailstore",
-                    lob: "smb",
-                    category: "",
-                    product_flavor: ""
-                }
-            }]
-            )
+                {
+                    schema: "iglu:com.carbonite/product/jsonschema/2-0-0",
+                    data: {
+                        brand: "mailstore",
+                        lob: "smb",
+                        product: "server",
+                        product_level: ""
+                    }
+                }]
+        )
     };
 
 if (~viper.dom["pathname"].indexOf("/en/mailstore-server-trial-start.aspx")){
@@ -69,13 +68,12 @@ if (~viper.dom["pathname"].indexOf("/en/mailstore-server-trial-start.aspx")){
             }
         },
             {
-                schema: "iglu:com.carbonite/product/jsonschema/1-0-0",
+                schema: "iglu:com.carbonite/product/jsonschema/2-0-0",
                 data: {
-                    product_name: "server",
-                    product_group: "mailstore",
+                    brand: "mailstore",
                     lob: "smb",
-                    category: "",
-                    product_flavor: ""
+                    product: "server",
+                    product_level: ""
                 }
             }]
     )
