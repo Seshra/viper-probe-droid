@@ -27,56 +27,54 @@ This file contains all of the site-specific code for Mailstore.com.  This inform
 */
 
 //Snowplow Conversions
-    /*
+
     //Trial Download Conversion
     if (~viper.dom["pathname"].indexOf("/de/mailstore-server-trial-start.aspx")){
-        window.snowplow("trackUnstructEvent", [{
-                schema : "iglu:com.carbonite/event/trial_download/jsonschema/1-0-0",
+        window.snowplow("trackUnstructEvent", {
+                schema : "iglu:com.carbonite/trial_download/jsonschema/1-0-0",
                 data : {
                     timeStamp: new Date()
                 }
             },
-            {
-                schema: "iglu:com.carbonite/context/user/jsonschema/1-0-0",
+            [{
+                schema: "iglu:com.carbonite/user/jsonschema/1-0-0",
                 data: {
-                    locale: "German"
+                    locale: "Deutsch"
                 }
             },
-            {
-                schema: "iglu:com.carbonite/context/user/jsonschema/1-0-0",
-                data: {
-                    product_name: "server",
-                    product_group: "mailstore",
-                    lob: "smb",
-                    category: "",
-                    product_flavor: ""
-                }
-            }
-            ])
+                {
+                    schema: "iglu:com.carbonite/product/jsonschema/2-0-0",
+                    data: {
+                        brand: "mailstore",
+                        lob: "smb",
+                        product: "server",
+                        product_level: ""
+                    }
+                }]
+        )
     };
 
 if (~viper.dom["pathname"].indexOf("/en/mailstore-server-trial-start.aspx")){
-    window.snowplow("trackUnstructEvent", [{
-        schema : "iglu:com.carbonite/event/trial_download/jsonschema/1-0-0",
-        data : {
-            timeStamp: new Date()
+    window.snowplow("trackUnstructEvent", {
+            schema : "iglu:com.carbonite/trial_download/jsonschema/1-0-0",
+            data : {
+                timeStamp: new Date()
             }
         },
-        {
-            schema: "iglu:com.carbonite/context/user/jsonschema/1-0-0",
+        [{
+            schema: "iglu:com.carbonite/user/jsonschema/1-0-0",
             data: {
                 locale: "English"
             }
         },
-        {
-            schema: "iglu:com.carbonite/context/user/jsonschema/1-0-0",
-            data: {
-                product_name: "server",
-                product_group: "mailstore",
-                lob: "smb",
-                category: "",
-                product_flavor: ""
-            }
-        }
-    ])
-};*/
+            {
+                schema: "iglu:com.carbonite/product/jsonschema/2-0-0",
+                data: {
+                    brand: "mailstore",
+                    lob: "smb",
+                    product: "server",
+                    product_level: ""
+                }
+            }]
+    )
+};

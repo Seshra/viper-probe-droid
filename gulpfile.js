@@ -56,7 +56,7 @@ gulp.task('clean', ['test'], function () {
 });
 
 gulp.task('build', ['lint','test', 'clean'], function () {
-    return gulp.src('./src/js/viper.js')
+    return gulp.src('./src/js/*.js')
         .pipe(uglify().on('error', gutil.log))
         .pipe(size())
         .pipe(gulp.dest('./dist'));
