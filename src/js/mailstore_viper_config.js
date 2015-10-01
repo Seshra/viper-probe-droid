@@ -21,7 +21,6 @@ cookieName: "_holocron_"
 
  window.snowplow('enableActivityTracking', 30, 30);
  window.snowplow('enableLinkClickTracking');
- window.snowplow('enableFormTracking');
  window.snowplow('trackPageView', false, null);
 
 
