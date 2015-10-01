@@ -6,6 +6,9 @@
 v1.0
 */
 
+/*
+ This file contains all of the site-specific code for Mailstore.com.  This information may contain conversion events,
+ */
 
 //Starting the Snowplow tracking script
 
@@ -22,38 +25,35 @@ cookieName: "_holocron_"
  window.snowplow('trackPageView', false, null);
 
 
-/*
-This file contains all of the site-specific code for Mailstore.com.  This information may contain conversion events,
-*/
-
 //Snowplow Conversions
 
-    //Trial Download Conversion
-    if (~viper.dom["pathname"].indexOf("/de/mailstore-server-trial-start.aspx")){
-        window.snowplow("trackUnstructEvent", {
-                schema : "iglu:com.carbonite/trial_download/jsonschema/1-0-0",
-                data : {
-                    timeStamp: new Date()
-                }
-            },
-            [{
-                schema: "iglu:com.carbonite/user/jsonschema/1-0-0",
+//Trial Download Conversion Deutsch
+if (~viper.dom["pathname"].indexOf("/de/mailstore-server-trial-start.aspx")) {
+    window.snowplow("trackUnstructEvent", {
+            schema: "iglu:com.carbonite/trial_download/jsonschema/1-0-0",
+            data: {
+                timeStamp: new Date()
+            }
+        },
+        [{
+            schema: "iglu:com.carbonite/user/jsonschema/1-0-0",
+            data: {
+                locale: "Deutsch"
+            }
+        },
+            {
+                schema: "iglu:com.carbonite/product/jsonschema/2-0-0",
                 data: {
-                    locale: "Deutsch"
+                    brand: "Mailstore",
+                    lob: "SMB",
+                    product: "Mailstore",
+                    product_level: "Server"
                 }
-            },
-                {
-                    schema: "iglu:com.carbonite/product/jsonschema/2-0-0",
-                    data: {
-                        brand: "mailstore",
-                        lob: "smb",
-                        product: "server",
-                        product_level: ""
-                    }
-                }]
-        )
-    };
+            }]
+    )
+};
 
+//Trial Download Conversion English
 if (~viper.dom["pathname"].indexOf("/en/mailstore-server-trial-start.aspx")){
     window.snowplow("trackUnstructEvent", {
             schema : "iglu:com.carbonite/trial_download/jsonschema/1-0-0",
@@ -70,10 +70,114 @@ if (~viper.dom["pathname"].indexOf("/en/mailstore-server-trial-start.aspx")){
             {
                 schema: "iglu:com.carbonite/product/jsonschema/2-0-0",
                 data: {
-                    brand: "mailstore",
-                    lob: "smb",
-                    product: "server",
-                    product_level: ""
+                    brand: "Mailstore",
+                    lob: "SMB",
+                    product: "Mailstore",
+                    product_level: "Server"
+                }
+            }]
+    )
+};
+
+//Quote Conversion Deutsch
+if (~viper.dom["pathname"].indexOf("/de/mailstore-kaufen-angebot-thankyou.aspx")){
+    window.snowplow("trackUnstructEvent", {
+            schema : "iglu:com.carbonite/quote_requested/jsonschema/1-0-0",
+            data : {
+                timeStamp: new Date()
+            }
+        },
+        [{
+            schema: "iglu:com.carbonite/user/jsonschema/1-0-0",
+            data: {
+                locale: "Deutsch"
+            }
+        },
+            {
+                schema: "iglu:com.carbonite/product/jsonschema/2-0-0",
+                data: {
+                    brand: "Mailstore",
+                    lob: "SMB",
+                    product: "Mailstore",
+                    product_level: "Server"
+                }
+            }]
+    )
+};
+
+//Quote Conversion English
+if (~viper.dom["pathname"].indexOf("/en/mailstore-how-to-buy-quote-thankyou.aspx")){
+    window.snowplow("trackUnstructEvent", {
+            schema : "iglu:com.carbonite/quote_requested/jsonschema/1-0-0",
+            data : {
+                timeStamp: new Date()
+            }
+        },
+        [{
+            schema: "iglu:com.carbonite/user/jsonschema/1-0-0",
+            data: {
+                locale: "English"
+            }
+        },
+            {
+                schema: "iglu:com.carbonite/product/jsonschema/2-0-0",
+                data: {
+                    brand: "Mailstore",
+                    lob: "SMB",
+                    product: "Mailstore",
+                    product_level: "Server"
+                }
+            }]
+    )
+};
+
+//Resource Download Deutsch
+if (~viper.dom["pathname"].indexOf("/de/mailstore-server-thankyou-inbox.aspx")){
+    window.snowplow("trackUnstructEvent", {
+            schema : "iglu:com.carbonite/resource_download/jsonschema/1-0-0",
+            data : {
+                timeStamp: new Date()
+            }
+        },
+        [{
+            schema: "iglu:com.carbonite/user/jsonschema/1-0-0",
+            data: {
+                locale: "Deutsch"
+            }
+        },
+            {
+                schema: "iglu:com.carbonite/product/jsonschema/2-0-0",
+                data: {
+                    brand: "Mailstore",
+                    lob: "SMB",
+                    product: "Mailstore",
+                    product_level: "Server"
+                }
+            }]
+    )
+};
+
+//Resource Download English
+if (~viper.dom["pathname"].indexOf("/en/mailstore-server-thankyou-inbox.aspx")){
+    window.snowplow("trackUnstructEvent", {
+            schema : "iglu:com.carbonite/resource_download/jsonschema/1-0-0",
+            data : {
+                timeStamp: new Date()
+            }
+        },
+        [{
+            schema: "iglu:com.carbonite/user/jsonschema/1-0-0",
+            data: {
+                locale: "English"
+            }
+        },
+            {
+                schema: "iglu:com.carbonite/product/jsonschema/2-0-0",
+                data: {
+                    brand: "Mailstore",
+                    lob: "SMB",
+                    product: "Mailstore",
+                    product_level: "Server"
                 }
             }]
     )
