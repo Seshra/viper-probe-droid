@@ -24,6 +24,18 @@ cookieName: "_holocron_"
  window.snowplow('enableFormTracking');
  window.snowplow('trackPageView', false, null);
 
+ window.onerror = function(errorMsg, url, lineNumber){
+    window.snowplow("trackUnstructEvent", {
+                schema : "iglu:com.carbonite/js_error/jsonschema/1-0-0",
+                data : {
+                    timeStamp: new Date(),
+                    js_url: url,
+                    line_number: lineNumber,
+                    error_msg: errorMsg
+                }
+            })
+    }
+
 
 //Snowplow Conversions
 
