@@ -7,6 +7,7 @@ var viper = {
         document.cookie = cname + "=" + cvalue + "; " + expires;
     },
 
+    //used to compare variable values to white lists
     contains : function(array, obj){
     var i = array.length;
     while (i--) {
@@ -95,10 +96,12 @@ var viper = {
         pathname : location.pathname,
         title : document.title,
     },
+
     application : "",
     environment : "",
+
     qs_wl : ["environment","utm_source","utm_medium","utm_campaign","utm_content","Category","Page_ID"],
-    app_wl : ["mailstore","pardot","test-pardot"],
+    app_wl : ["mailstore","pardot","test-pardot","landing-pages"],
 
 //***************************************************************************************************************
 
@@ -106,16 +109,20 @@ var viper = {
         viper.qpToObj();
         viper.cookieToObj();
         viper.metaToObj();
+
         //Checks to see if utag_data object exists, and if not, sets an empty object.
         var utag_data = utag_data || {};
+
         //Check to see if a viper cookie exists and use its contents if it does
         if (this.cp.viper) {
             this.environment = this.cp.viper;
         }
+
         //Check query string parameter for "viper=" to set environment
         if (this.qp.viper) {
             this.environment = this.qp.viper;
         }
+
         //Set Cookie to the environment value
         if (this.cp.viper !== this.environment) {
             this.setCookie("viper", this.environment);
