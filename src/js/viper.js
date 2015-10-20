@@ -1,6 +1,6 @@
 var viper = {
     //Function used to set cookies
-    setCookie : function (cname, cvalue, days) {
+    setCookie: function (cname, cvalue, days) {
         var d = new Date();
         d.setTime(d.getTime() + (days * 86400000));
         var expires = "expires=" + d.toUTCString();
@@ -8,24 +8,26 @@ var viper = {
     },
 
     //used to compare variable values to white lists
-    contains : function(array, obj){
-    var i = array.length;
-    while (i--) {
-        if (array[i] === obj) {
-            return true;
+    contains: function (array, obj) {
+        var i = array.length;
+        while (i--) {
+            if (array[i] === obj) {
+                return true;
+            }
         }
-    }
-    return false;
+        return false;
     },
 
     //Adds any readable cookies to the viper object as viper.cp.xx
-    cookieToObj : function() {
+    cookieToObj: function () {
         viper.cp = {};
         if (document.cookie) {
             var cookies = document.cookie.split(';');
             var cookie;
             for (var i = 0; i < cookies.length; i++) {
-                while (cookies[i].charAt(0) === ' ') {cookies[i] = cookies[i].substring(1);}
+                while (cookies[i].charAt(0) === ' ') {
+                    cookies[i] = cookies[i].substring(1);
+                }
                 cookie = cookies[i].split('=');
                 viper.cp[cookie[0]] = cookie[1];
             }
@@ -33,7 +35,7 @@ var viper = {
     },
 
     //Adds any query string parameters to the viper object as viper.qp.xx
-    qpToObj : function() {
+    qpToObj: function () {
         viper.qp = {};
         if (location.search) {
             var qs = location.search.slice(1).split('&');
@@ -41,16 +43,16 @@ var viper = {
             for (var i = 0; i < qs.length; i++) {
                 qsp = qs[i].split('=');
                 if (viper.contains(viper.qs_wl, qsp[0]) === true) {
-                viper.qp[qsp[0]] = qsp[1];
-                viper.setCookie("viper_"+qsp[0], qsp[1]);
-            }
+                    viper.qp[qsp[0]] = qsp[1];
+                    viper.setCookie("viper_" + qsp[0], qsp[1]);
+                }
             }
         }
     },
 
     //Adds any meta tags with a name or property attribute, and corresponding content attribute to the viper object as
     //viper.meta.xx
-    metaToObj : function(){
+    metaToObj: function () {
         viper.meta = {};
         if (document.getElementsByTagName("meta")) {
             var tags = document.getElementsByTagName("meta");
@@ -65,43 +67,61 @@ var viper = {
 
     //Function to retrieve any value from Cookies, Query String or Meta tags written to the viper object above.
     //proper types are "cookie", "meta",  "dom" or "querystring"
-    retrieve : function (type, name) {
+    retrieve: function (type, name) {
         var t = "";
-        if (type.match(/(^)(base)($)/i)){t = "";}
-        if (type.match(/(^)(cookie)($)/i)){t = "cp";}
-        if (type.match(/(^)(meta)($)/i)){t = "meta";}
-        if (type.match(/(^)(qp|querystring|query\ string)($)/i)){t = "qp";}
-        if (type.match(/(^)(dom)($)/i)){t = "dom";}
-        if (t === ""){return viper[name];}else{return viper[t][name];}
+        if (type.match(/(^)(base)($)/i)) {
+            t = "";
+        }
+        if (type.match(/(^)(cookie)($)/i)) {
+            t = "cp";
+        }
+        if (type.match(/(^)(meta)($)/i)) {
+            t = "meta";
+        }
+        if (type.match(/(^)(qp|querystring|query\ string)($)/i)) {
+            t = "qp";
+        }
+        if (type.match(/(^)(dom)($)/i)) {
+            t = "dom";
+        }
+        if (t === "") {
+            return viper[name];
+        } else {
+            return viper[t][name];
+        }
     },
 
     //Declares Snowplow function
-    snowplow : function(p,l,o,w,i,n,g){
-        if(!p[i]){p.GlobalSnowplowNamespace=p.GlobalSnowplowNamespace||[];
+    snowplow: function (p, l, o, w, i, n, g) {
+        if (!p[i]) {
+            p.GlobalSnowplowNamespace = p.GlobalSnowplowNamespace || [];
             p.GlobalSnowplowNamespace.push(i);
-            p[i]=function(){
-                (p[i].q=p[i].q||[]).push(arguments);    };
-            p[i].q=p[i].q||[];
-            n=l.createElement(o);
-            g=l.getElementsByTagName(o)[0];
-            n.async=1;
-            n.src=w;g.parentNode.insertBefore(n,g);}
+            p[i] = function () {
+                (p[i].q = p[i].q || []).push(arguments);
+            };
+            p[i].q = p[i].q || [];
+            n = l.createElement(o);
+            g = l.getElementsByTagName(o)[0];
+            n.async = 1;
+            n.src = w;
+            g.parentNode.insertBefore(n, g);
+        }
     },
 
-    dom : {
-        url : document.URL,
-        domain : document.domain,
-        query_string : location.search,
+    dom: {
+        url: document.URL,
+        domain: document.domain,
+        query_string: location.search,
         referrer: document.referrer,
-        pathname : location.pathname,
-        title : document.title,
+        pathname: location.pathname,
+        title: document.title,
     },
 
-    application : "",
-    environment : "",
+    application: "",
+    environment: "",
 
-    qs_wl : ["environment","utm_source","utm_medium","utm_campaign","utm_content","Category","Page_ID"],
-    app_wl : ["mailstore","pardot","test-pardot","landing-pages"],
+    qs_wl: ["environment", "utm_source", "utm_medium", "utm_campaign", "utm_content", "Category", "Page_ID"],
+    app_wl: ["mailstore", "pardot", "test-pardot", "landing-pages"],
 
 //***************************************************************************************************************
 

@@ -4,17 +4,17 @@
 
 //Starting the Snowplow tracking script
 /*
-window.snowplow('newTracker', 'co', 's-threads.analytics.carbonite.com', {
-    appId: '',
-    platform: 'web',
-    cookieDomain: ".carbonite.com",
-    cookieName: "_holocron_"
-});
+ window.snowplow('newTracker', 'co', 's-threads.analytics.carbonite.com', {
+ appId: '',
+ platform: 'web',
+ cookieDomain: ".carbonite.com",
+ cookieName: "_holocron_"
+ });
 
-window.snowplow('enableActivityTracking', 30, 30);
-window.snowplow('enableLinkClickTracking');
-window.snowplow('trackPageView', false, null);
-*/
+ window.snowplow('enableActivityTracking', 30, 30);
+ window.snowplow('enableLinkClickTracking');
+ window.snowplow('trackPageView', false, null);
+ */
 
 //Snowplow Event Tracking
 
