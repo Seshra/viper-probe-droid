@@ -3,8 +3,8 @@
 
 
 /*Snowplow
-v1.0
-*/
+ v1.0
+ */
 
 /*
  This file contains all of the site-specific code for Mailstore.com.  This information may contain conversion events,
@@ -13,15 +13,15 @@ v1.0
 //Starting the Snowplow tracking script
 
 window.snowplow('newTracker', 'co', 's-threads.analytics.carbonite.com', {
-appId: 'mailstore-prod',
-platform: 'web',
-cookieDomain: ".mailstore.com",
-cookieName: "_holocron_"
+    appId: 'mailstore-prod',
+    platform: 'web',
+    cookieDomain: ".mailstore.com",
+    cookieName: "_holocron_"
 });
 
- window.snowplow('enableActivityTracking', 30, 30);
- window.snowplow('enableLinkClickTracking');
- window.snowplow('trackPageView', false, null);
+window.snowplow('enableActivityTracking', 30, 30);
+window.snowplow('enableLinkClickTracking');
+window.snowplow('trackPageView', false, null);
 
 
 //Snowplow Conversions
@@ -50,13 +50,14 @@ if (~viper.dom["pathname"].indexOf("/de/mailstore-server-trial-start.aspx")) {
                 }
             }]
     )
-};
+}
+;
 
 //Trial Download Conversion English
-if (~viper.dom["pathname"].indexOf("/en/mailstore-server-trial-start.aspx")){
+if (~viper.dom["pathname"].indexOf("/en/mailstore-server-trial-start.aspx")) {
     window.snowplow("trackUnstructEvent", {
-            schema : "iglu:com.carbonite/trial_download/jsonschema/1-0-0",
-            data : {
+            schema: "iglu:com.carbonite/trial_download/jsonschema/1-0-0",
+            data: {
                 timeStamp: new Date()
             }
         },
@@ -76,13 +77,14 @@ if (~viper.dom["pathname"].indexOf("/en/mailstore-server-trial-start.aspx")){
                 }
             }]
     )
-};
+}
+;
 
 //Quote Conversion Deutsch
-if (~viper.dom["pathname"].indexOf("/de/mailstore-kaufen-angebot-thankyou.aspx")){
+if (~viper.dom["pathname"].indexOf("/de/mailstore-kaufen-angebot-thankyou.aspx")) {
     window.snowplow("trackUnstructEvent", {
-            schema : "iglu:com.carbonite/quote_requested/jsonschema/1-0-0",
-            data : {
+            schema: "iglu:com.carbonite/quote_requested/jsonschema/1-0-0",
+            data: {
                 timeStamp: new Date()
             }
         },
@@ -102,13 +104,14 @@ if (~viper.dom["pathname"].indexOf("/de/mailstore-kaufen-angebot-thankyou.aspx")
                 }
             }]
     )
-};
+}
+;
 
 //Quote Conversion English
-if (~viper.dom["pathname"].indexOf("/en/mailstore-how-to-buy-quote-thankyou.aspx")){
+if (~viper.dom["pathname"].indexOf("/en/mailstore-how-to-buy-quote-thankyou.aspx")) {
     window.snowplow("trackUnstructEvent", {
-            schema : "iglu:com.carbonite/quote_requested/jsonschema/1-0-0",
-            data : {
+            schema: "iglu:com.carbonite/quote_requested/jsonschema/1-0-0",
+            data: {
                 timeStamp: new Date()
             }
         },
@@ -128,13 +131,14 @@ if (~viper.dom["pathname"].indexOf("/en/mailstore-how-to-buy-quote-thankyou.aspx
                 }
             }]
     )
-};
+}
+;
 
 //Resource Download Deutsch
-if (~viper.dom["pathname"].indexOf("/de/mailstore-server-thankyou-inbox.aspx")){
+if (~viper.dom["pathname"].indexOf("/de/mailstore-server-thankyou-inbox.aspx")) {
     window.snowplow("trackUnstructEvent", {
-            schema : "iglu:com.carbonite/resource_download/jsonschema/1-0-0",
-            data : {
+            schema: "iglu:com.carbonite/resource_download/jsonschema/1-0-0",
+            data: {
                 timeStamp: new Date()
             }
         },
@@ -154,13 +158,14 @@ if (~viper.dom["pathname"].indexOf("/de/mailstore-server-thankyou-inbox.aspx")){
                 }
             }]
     )
-};
+}
+;
 
 //Resource Download English
-if (~viper.dom["pathname"].indexOf("/en/mailstore-server-thankyou-inbox.aspx")){
+if (~viper.dom["pathname"].indexOf("/en/mailstore-server-thankyou-inbox.aspx")) {
     window.snowplow("trackUnstructEvent", {
-            schema : "iglu:com.carbonite/resource_download/jsonschema/1-0-0",
-            data : {
+            schema: "iglu:com.carbonite/resource_download/jsonschema/1-0-0",
+            data: {
                 timeStamp: new Date()
             }
         },
@@ -180,4 +185,5 @@ if (~viper.dom["pathname"].indexOf("/en/mailstore-server-thankyou-inbox.aspx")){
                 }
             }]
     )
-};
+}
+;
