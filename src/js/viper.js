@@ -156,7 +156,7 @@ var viper = {
             var conf = document.createElement("script");
             conf.setAttribute("id", "viper_config");
             conf.src = '//viper.analytics.carbonite.com/' + viper.application + '_viper_config.js';
-            ///conf.src = '//viper-test-pages.s3-website-us-east-1.amazonaws.com/js/' + viper.application + '_viper_config.js';
+            //conf.src = '//viper-test-pages.s3-website-us-east-1.amazonaws.com/js/' + viper.application + '_viper_config.js';
             conf.type = 'text/javascript';
             document.body.appendChild(conf);
         }
@@ -169,6 +169,7 @@ var viper = {
         document.body.appendChild(div);
 
         //Adding Tealium inside div tag
+
         var b = document.createElement("script");
         b.setAttribute("id", "viper_tealium");
         b.src = '//tags.tiqcdn.com/utag/carb/' + viper.application + '/' + viper.environment + '/utag.js';
