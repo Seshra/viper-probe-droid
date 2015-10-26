@@ -7,7 +7,7 @@
  window.snowplow('newTracker', 'co', 's-threads.analytics.carbonite.com', {
  appId: 'smb-grader-dev',
  platform: 'web',
- cookieDomain: ".amazonaws.com",
+ cookieDomain: ".carbonite.com",
  cookieName: "viper-grader"
  });
 
