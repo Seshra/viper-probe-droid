@@ -3,18 +3,52 @@
  */
 
 //Starting the Snowplow tracking script
-/*
- window.snowplow('newTracker', 'co', 's-threads.analytics.carbonite.com', {
- appId: '',
- platform: 'web',
- cookieDomain: ".carbonite.com",
- cookieName: "_holocron_"
- });
+if (document.domain === "dev.pancommunications.com") {
+window.snowplow('newTracker', 'co', 's-threads.analytics.carbonite.com', {
+    appId: 'smb-grader-dev',
+    platform: 'web',
+    cookieDomain: ".carbonite.com",
+    cookieName: "viper-grader"
+});
 
- window.snowplow('enableActivityTracking', 30, 30);
- window.snowplow('enableLinkClickTracking');
- window.snowplow('trackPageView', false, null);
- */
+window.snowplow('enableActivityTracking', 10, 15);
+window.snowplow('enableLinkClickTracking');
+window.snowplow('trackPageView', false, null);
 
-//Snowplow Event Tracking
+    var bl = {
+        forms: {
+            blacklist: []
+        },
+        fields: {
+            blacklist: ['first_name', 'last_name']
+        }
+    };
 
+    window.snowplow('enableFormTracking', bl);
+
+    //code to extract grader scores and send them as an unstructured event
+    if (location.pathname === "/score") {
+        (function () {
+
+            //extract scores from "score" page on Grader site
+
+            var backupNum = document.getElementById("circleBackup").getAttribute("data-value").substring(0, 4) * 100;
+            var recoveryNum = document.getElementById("circleRecovery").getAttribute("data-value").substring(0, 4) * 100;
+            var continuousNum = document.getElementById("circleContinuous").getAttribute("data-value").substring(0, 4) * 100;
+            var businessNum = document.getElementById("circleBusiness").getAttribute("data-value").substring(0, 4) * 100;
+
+            //Snowplow Event Tracking
+
+            window.snowplow("trackUnstructEvent", {
+                schema: "iglu:com.carbonite/grader_score/jsonschema/1-0-0",
+                data: {
+                    timeStamp: new Date(),
+                    backup_score: backupNum,
+                    recovery_score: recoveryNum,
+                    operations_score: continuousNum,
+                    business_continuity_score: businessNum
+                }
+            });
+        })();
+    }
+}
