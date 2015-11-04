@@ -4,7 +4,7 @@
 
 (function () {
     if (viper.environment){
-    }else if (!viper.environment) if ((!viper.environment) && (document.domain === "www.pancommunications.com" || document.domain === "pancommunications.com")) {
+    } else if ((!viper.environment) && (document.domain === "www.pancommunications.com" || document.domain === "pancommunications.com")) {
         viper.environment = "prod";
     } else if ((!viper.environment) && document.domain === "dev.pancommunications.com") {
         viper.environment = "dev";

@@ -1,15 +1,55 @@
 //Starting the Snowplow tracking script
+
+/*
+ (function () {
+ if (viper.environment){
+ }else{
+ viper.environment = "prod";
+ }
+
+ //Check to see if a viper cookie exists and use its contents if it does
+ if (viper.cp.viper) {
+ viper.environment = viper.cp.viper;
+ }
+
+ //Check query string parameter for "viper=" to set environment
+ if (viper.qp.viper) {
+ viper.environment = viper.qp.viper;
+ }
+ //Set Cookie to the environment value
+ if (viper.cp.viper !== viper.environment) {
+ viper.setCookie("viper", viper.environment);
+ }
+ viper.tealium();
+ }());
+ */
+
+
+
 /*
  window.snowplow('newTracker', 'co', 's-threads.analytics.carbonite.com', {
- appId: 'mailstore-prod',
+ appId: 'pardot-prod',
  platform: 'web',
-
+ cookieDomain: ".carbonite.com",
+ cookieName: "_holocron_"
  });
+
  window.snowplow('enableActivityTracking', 30, 30);
+
  window.snowplow('enableLinkClickTracking');
- window.snowplow('enableFormTracking');
  window.snowplow('trackPageView', false, null);
- */
+
+//Code to enable Form Tracking and enabling BlackLists for Form Tracking
+var bl = {
+    forms: {
+        blacklist: []
+    },
+    fields: {
+        blacklist: []
+    }
+};
+window.snowplow('enableFormTracking', bl);
+*/
 
 
 //code to extract catid from href query string an place in a cookie
