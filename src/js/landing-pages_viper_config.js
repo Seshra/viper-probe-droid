@@ -2,18 +2,41 @@
  This file contains all of the site-specific code for landing-pages.  This information may contain conversion events,
  */
 
+(function () {
+    if (viper.environment){
+    } else if ((!viper.environment) && (document.domain === "www.pancommunications.com" || document.domain === "pancommunications.com")) {
+        viper.environment = "prod";
+    } else if ((!viper.environment) && document.domain === "dev.pancommunications.com") {
+        viper.environment = "dev";
+    }
+    //Check to see if a viper cookie exists and use its contents if it does
+    if (viper.cp.viper) {
+        viper.environment = viper.cp.viper;
+    }
+    //Check query string parameter for "viper=" to set environment
+    if (viper.qp.viper) {
+        viper.environment = viper.qp.viper;
+    }
+    //Set Cookie to the environment value
+    if (viper.cp.viper !== viper.environment) {
+        viper.setCookie("viper", viper.environment);
+    }
+    viper.tealium();
+}());
+
+
 //Starting the Snowplow tracking script
 if (document.domain === "dev.pancommunications.com") {
-window.snowplow('newTracker', 'co', 's-threads.analytics.carbonite.com', {
-    appId: 'smb-grader-dev',
-    platform: 'web',
-    cookieDomain: ".carbonite.com",
-    cookieName: "viper-grader"
-});
+    window.snowplow('newTracker', 'co', 's-threads.analytics.carbonite.com', {
+        appId: 'smb-grader-dev',
+        platform: 'web',
+        cookieDomain: ".carbonite.com",
+        cookieName: "viper-grader"
+    });
 
-window.snowplow('enableActivityTracking', 10, 15);
-window.snowplow('enableLinkClickTracking');
-window.snowplow('trackPageView', false, null);
+    window.snowplow('enableActivityTracking', 10, 15);
+    window.snowplow('enableLinkClickTracking');
+    window.snowplow('trackPageView', false, null);
 
     var bl = {
         forms: {
@@ -31,14 +54,16 @@ window.snowplow('trackPageView', false, null);
         (function () {
 
             //extract scores from "score" page on Grader site
-
             var backupNum = document.getElementById("circleBackup").getAttribute("data-value").substring(0, 4) * 100;
+            backupNum = parseInt(backupNum);
             var recoveryNum = document.getElementById("circleRecovery").getAttribute("data-value").substring(0, 4) * 100;
+            recoveryNum = parseInt(recoveryNum);
             var continuousNum = document.getElementById("circleContinuous").getAttribute("data-value").substring(0, 4) * 100;
+            continuousNum = parseInt(continuousNum);
             var businessNum = document.getElementById("circleBusiness").getAttribute("data-value").substring(0, 4) * 100;
+            businessNum = parseInt(businessNum);
 
             //Snowplow Event Tracking
-
             window.snowplow("trackUnstructEvent", {
                 schema: "iglu:com.carbonite/grader_score/jsonschema/1-0-0",
                 data: {

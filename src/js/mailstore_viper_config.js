@@ -2,13 +2,34 @@
 /*v0.01*/
 
 
-/*Snowplow
- v1.0
- */
-
 /*
  This file contains all of the site-specific code for Mailstore.com.  This information may contain conversion events,
  */
+
+
+//Determining Tealium Environment and launching Tealium
+(function () {
+    if (viper.environment) {
+    } else if ((!viper.environment) && (document.domain === "www.mailstore.com" || document.domain === "mailstore.com")) {
+        viper.environment = "prod"
+    } else if ((!viper.environment) && document.domain === "dev.mailstore.com") {
+        viper.environment = "dev";
+    }
+    //Check to see if a viper cookie exists and use its contents if it does
+    if (viper.cp.viper) {
+        viper.environment = viper.cp.viper;
+    }
+    //Check query string parameter for "viper=" to set environment
+    if (viper.qp.viper) {
+        viper.environment = viper.qp.viper;
+    }
+    //Set Cookie to the environment value
+    if (viper.cp.viper !== viper.environment) {
+        viper.setCookie("viper", viper.environment);
+    }
+    viper.tealium();
+}())
+
 
 //Starting the Snowplow tracking script
 

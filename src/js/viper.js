@@ -91,6 +91,16 @@ var viper = {
         }
     },
 
+    //Adding Tealium inside div tag
+    tealium: function () {
+        var b = document.createElement("script");
+        b.setAttribute("id", "viper_tealium");
+        b.src = '//tags.tiqcdn.com/utag/carb/' + viper.application + '/' + viper.environment + '/utag.js';
+        b.type = 'text/javascript';
+        b.async = true;
+        document.getElementById('viper').appendChild(b);
+    },
+
     //Declares Snowplow function
     snowplow: function (p, l, o, w, i, n, g) {
         if (!p[i]) {
@@ -125,7 +135,10 @@ var viper = {
 
 //***************************************************************************************************************
 
-    launch: function () {
+    launch: function (app) {
+
+        viper.application = app || viper.application;
+
         viper.qpToObj();
         viper.cookieToObj();
         viper.metaToObj();
@@ -133,23 +146,15 @@ var viper = {
         //Checks to see if utag_data object exists, and if not, sets an empty object.
         var utag_data = utag_data || {};
 
-        //Check to see if a viper cookie exists and use its contents if it does
-        if (this.cp.viper) {
-            this.environment = this.cp.viper;
-        }
-
-        //Check query string parameter for "viper=" to set environment
-        if (this.qp.viper) {
-            this.environment = this.qp.viper;
-        }
-
-        //Set Cookie to the environment value
-        if (this.cp.viper !== this.environment) {
-            this.setCookie("viper", this.environment);
-        }
-
         //creating the Snowplow script tag and inserting it at the bottom of the body tag
         viper.snowplow(window, document, "script", "//d1qbbgtcslwdbx.cloudfront.net/2.2.0/sp.js", "snowplow");
+
+        //Adding div tag
+        var div = document.createElement("div");
+        div.setAttribute('id', 'viper');
+        div.style.visibility = 'hidden';
+        div.style.display = 'none';
+        document.body.appendChild(div);
 
         //Calling the *_viper_config.js file based on viper.application value
         if (viper.contains(viper.app_wl, viper.application) === true) {
@@ -160,21 +165,5 @@ var viper = {
             conf.type = 'text/javascript';
             document.body.appendChild(conf);
         }
-
-        //Adding div tag
-        var div = document.createElement("div");
-        div.setAttribute('id', 'viper');
-        div.style.visibility = 'hidden';
-        div.style.display = 'none';
-        document.body.appendChild(div);
-
-        //Adding Tealium inside div tag
-
-        var b = document.createElement("script");
-        b.setAttribute("id", "viper_tealium");
-        b.src = '//tags.tiqcdn.com/utag/carb/' + viper.application + '/' + viper.environment + '/utag.js';
-        b.type = 'text/javascript';
-        b.async = true;
-        document.getElementById('viper').appendChild(b);
     }
 };
