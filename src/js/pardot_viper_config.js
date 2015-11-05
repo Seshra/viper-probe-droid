@@ -1,32 +1,8 @@
-//Starting the Snowplow tracking script
-
 /*
- (function () {
- if (viper.environment){
- }else{
- viper.environment = "prod";
- }
-
- //Check to see if a viper cookie exists and use its contents if it does
- if (viper.cp.viper) {
- viper.environment = viper.cp.viper;
- }
-
- //Check query string parameter for "viper=" to set environment
- if (viper.qp.viper) {
- viper.environment = viper.qp.viper;
- }
- //Set Cookie to the environment value
- if (viper.cp.viper !== viper.environment) {
- viper.setCookie("viper", viper.environment);
- }
- viper.tealium();
- }());
+ This file contains all of the site-specific code for Mailstore.com.  This information may contain conversion events,
  */
 
-
-
-/*
+//Starting the Snowplow tracking script
  window.snowplow('newTracker', 'co', 's-threads.analytics.carbonite.com', {
  appId: 'pardot-prod',
  platform: 'web',
@@ -88,3 +64,26 @@ if (viper.qp.Page_ID) {
         document.getElementsByClassName("pct_pageID")[0].firstElementChild.value = viper.qp.Page_ID;
     }
 }
+
+//Determining Tealium Environment and launching Tealium
+(function () {
+    if (viper.environment){
+    }else{
+        viper.environment = "prod";
+    }
+
+    //Check to see if a viper cookie exists and use its contents if it does
+    if (viper.cp.viper) {
+        viper.environment = viper.cp.viper;
+    }
+
+    //Check query string parameter for "viper=" to set environment
+    if (viper.qp.viper) {
+        viper.environment = viper.qp.viper;
+    }
+    //Set Cookie to the environment value
+    if (viper.cp.viper !== viper.environment) {
+        viper.setCookie("viper", viper.environment);
+    }
+    viper.tealium();
+}());

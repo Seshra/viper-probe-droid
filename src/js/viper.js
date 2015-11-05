@@ -117,7 +117,12 @@ var viper = {
             g.parentNode.insertBefore(n, g);
         }
     },
+/*
+    //Function to return snowplow ID's
+    snowplowId: function(){
 
+    },
+*/
     dom: {
         url: document.URL,
         domain: document.domain,
