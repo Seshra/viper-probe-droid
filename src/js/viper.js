@@ -171,7 +171,7 @@ var viper = {
         cookies_enabled: navigator.cookieEnabled,
         browser_language: navigator.language,
         browser_version: navigator.appVersion,
-        java_enabled: navigator.javaEnabled(),
+        java_enabled: navigator.javaEnabled()
      },
 
     application: "",
