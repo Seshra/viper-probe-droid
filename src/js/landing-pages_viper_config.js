@@ -2,29 +2,6 @@
  This file contains all of the site-specific code for landing-pages.  This information may contain conversion events,
  */
 
-(function () {
-    if (viper.environment){
-    } else if ((!viper.environment) && (document.domain === "www.pancommunications.com" || document.domain === "pancommunications.com")) {
-        viper.environment = "prod";
-    } else if ((!viper.environment) && document.domain === "dev.pancommunications.com") {
-        viper.environment = "dev";
-    }
-    //Check to see if a viper cookie exists and use its contents if it does
-    if (viper.cp.viper) {
-        viper.environment = viper.cp.viper;
-    }
-    //Check query string parameter for "viper=" to set environment
-    if (viper.qp.viper) {
-        viper.environment = viper.qp.viper;
-    }
-    //Set Cookie to the environment value
-    if (viper.cp.viper !== viper.environment) {
-        viper.setCookie("viper", viper.environment);
-    }
-    viper.tealium();
-}());
-
-
 //Starting the Snowplow tracking script
 if (document.domain === "dev.pancommunications.com") {
     window.snowplow('newTracker', 'co', 's-threads.analytics.carbonite.com', {
@@ -77,3 +54,26 @@ if (document.domain === "dev.pancommunications.com") {
         })();
     }
 }
+
+//Determining Tealium Environment and launching Tealium
+(function () {
+    if (viper.environment){
+    } else if ((!viper.environment) && (document.domain === "www.pancommunications.com" || document.domain === "pancommunications.com")) {
+        viper.environment = "prod";
+    } else if ((!viper.environment) && document.domain === "dev.pancommunications.com") {
+        viper.environment = "dev";
+    }
+    //Check to see if a viper cookie exists and use its contents if it does
+    if (viper.cp.viper) {
+        viper.environment = viper.cp.viper;
+    }
+    //Check query string parameter for "viper=" to set environment
+    if (viper.qp.viper) {
+        viper.environment = viper.qp.viper;
+    }
+    //Set Cookie to the environment value
+    if (viper.cp.viper !== viper.environment) {
+        viper.setCookie("viper", viper.environment);
+    }
+    viper.tealium();
+}());
