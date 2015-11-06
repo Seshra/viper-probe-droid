@@ -117,12 +117,16 @@ var viper = {
             g.parentNode.insertBefore(n, g);
         }
     },
-/*
-    //Function to return snowplow ID's
-    snowplowId: function(){
 
+    //Function to return snowplow ID's
+    spSess: function(){
+        var data = JSON.stringify(viper.cp).split(",");
+        for (var i=0;i<data.length;i++){
+            if (data[i].indexOf("_holocron_ses")>-1){
+                return data[i];}
+        }
     },
-*/
+
     dom: {
         url: document.URL,
         domain: document.domain,
