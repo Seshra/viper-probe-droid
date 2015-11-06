@@ -1,3 +1,5 @@
+var mailstore_version = "v0.02 : Thu Nov 05 2015 19:08:03 GMT-0800 (PST)";
+
 /*mailstore_viper_config.js*/
 /*v0.01*/
 
