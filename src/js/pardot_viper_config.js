@@ -1,4 +1,4 @@
-var pardot_version = "v0.01 : Thu Nov 05 2015 19:08:03 GMT-0800 (PST)";
+var pardot_version = "v0.01 : Thu Nov 05 2015 20:58:03 GMT-0800 (PST)";
 
 /*
  This file contains all of the site-specific code for Mailstore.com.  This information may contain conversion events,
@@ -27,7 +27,6 @@ var bl = {
     }
 };
 window.snowplow('enableFormTracking', bl);
-*/
 
 
 //code to extract catid from href query string an place in a cookie

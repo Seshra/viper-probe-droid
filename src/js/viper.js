@@ -1,5 +1,5 @@
 var viper = {
-    version: "v0.04 : Thu Nov 05 2015 19:08:03 GMT-0800 (PST)",
+    version: "v0.04 : Thu Nov 05 2015 20:58:03 GMT-0800 (PST)",
 
     //Function used to set cookies
     setCookie: function (cname, cvalue, days) {
@@ -142,14 +142,37 @@ var viper = {
         }
     },
 
+    //To check to see if jQuery is installed
+    jqueryTest: function(){
+      if (typeof jQuery === "function"){return true;}
+    },
+
+    //The get the jQuery version, if installed
+    jqueryVersion: function(){
+        if (viper.jqueryTest() === true){
+            return jQuery.fn.jquery;
+        }else{
+            return "jQuery Not Installed";
+        }
+    },
+
+    //DOM Elements
     dom: {
         url: document.URL,
         domain: document.domain,
         query_string: location.search,
         referrer: document.referrer,
         pathname: location.pathname,
-        title: document.title,
+        title: document.title
     },
+
+    //Browser Information
+    browser: {
+        cookies_enabled: navigator.cookieEnabled,
+        browser_language: navigator.language,
+        browser_version: navigator.appVersion,
+        java_enabled: navigator.javaEnabled(),
+     },
 
     application: "",
     environment: "",
@@ -166,6 +189,8 @@ var viper = {
         viper.qpToObj();
         viper.cookieToObj();
         viper.metaToObj();
+        viper.browser["jquery_enabled"] = viper.jqueryTest();
+        viper.browser["jquery_version"] = viper.jqueryVersion();
 
         //Checks to see if utag_data object exists, and if not, sets an empty object.
         var utag_data = utag_data || {};
