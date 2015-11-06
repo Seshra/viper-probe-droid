@@ -118,12 +118,25 @@ var viper = {
         }
     },
 
-    //Function to return snowplow ID's
+    //Function to return snowplow Session ID
     spSess: function(){
         var data = JSON.stringify(viper.cp).split(",");
         for (var i=0;i<data.length;i++){
-            if (data[i].indexOf("_holocron_ses")>-1){
-                return data[i];}
+            if (data[i].toLowerCase().indexOf("_holocron_ses")>-1){
+                var ses = data[i].split(":")[1].replace(/"/g,"");
+                return ses;
+            }
+        }
+    },
+
+    //Function to return snowplow Visitor ID
+    spId: function(){
+        var data = JSON.stringify(viper.cp).split(",");
+        for (var i=0;i<data.length;i++){
+            if (data[i].toLowerCase().indexOf("_holocron_id")>-1){
+                var ID = data[i].split(":")[1].replace(/"/g,"");
+                return ID;
+            }
         }
     },
 
