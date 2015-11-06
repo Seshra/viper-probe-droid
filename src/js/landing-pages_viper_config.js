@@ -1,4 +1,4 @@
-var landingPagep_version = "v0.02 : Thu Nov 05 2015 19:08:03 GMT-0800 (PST)";
+var landingPage_version = "v0.02 : Thu Nov 05 2015 19:08:03 GMT-0800 (PST)";
 /*
  This file contains all of the site-specific code for landing-pages.  This information may contain conversion events,
  */
