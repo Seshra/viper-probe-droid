@@ -1,5 +1,5 @@
 var viper = {
-    version: "v0.04 : Thu Nov 05 2015 20:58:03 GMT-0800 (PST)",
+    version: "v0.04 : Mon Nov 09 2015 10:00:36 GMT-0800 (PST)",
 
     //Function used to set cookies
     setCookie: function (cname, cvalue, days) {
