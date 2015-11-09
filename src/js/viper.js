@@ -163,7 +163,7 @@ var viper = {
     environment: "",
 
     qs_wl: ["environment", "utm_source", "utm_medium", "utm_campaign", "utm_content", "Category", "Page_ID"],
-    app_wl: ["mailstore", "pardot", "test-pardot", "landing-pages"],
+    app_wl: ["mailstore", "pardot", "test-pardot", "landing-pages","main"],
 
 //***************************************************************************************************************
 
