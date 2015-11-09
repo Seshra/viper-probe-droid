@@ -28,6 +28,8 @@ var bl = {
 };
 window.snowplow('enableFormTracking', bl);
 
+//Run function to return Snowplow Visitor and Session Information
+viper.spCookie();
 
 //code to extract catid from href query string an place in a cookie
 if (viper.qp.catid) {
@@ -63,6 +65,16 @@ if (viper.qp.Category) {
 if (viper.qp.Page_ID) {
     if (document.getElementsByClassName("pct_pageID")[0]) {
         document.getElementsByClassName("pct_pageID")[0].firstElementChild.value = viper.qp.Page_ID;
+    }
+}
+if (viper.spCookieParams[1]) {
+    if (document.getElementsByClassName("pct_user_id")[0]) {
+        document.getElementsByClassName("pct_user_id")[0].firstElementChild.value = viper.spCookieParams[1];
+    }
+}
+if (viper.spCookieParams[3]) {
+    if (document.getElementsByClassName("pct_session_id")[0]) {
+        document.getElementsByClassName("pct_session_id")[0].firstElementChild.value = viper.spCookieParams[3];
     }
 }
 
