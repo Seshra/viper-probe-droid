@@ -123,7 +123,7 @@ var viper = {
     //Function to return Snowplow Cookie parameters
     spCookie: function(){
         window.snowplow(function () {
-            viper.spCookie = this.co.getDomainUserInfo();
+            viper.spCookieParams = this.co.getDomainUserInfo();
         });
     },
 
