@@ -1,10 +1,17 @@
-viper.main_version = "v0.01 : Mon Nov 09 2015 15:07:20 GMT-0800 (PST)";
-/*
- This file contains all of the site-specific code for main pages.  This information may contain conversion events
- */
+###main_viper_config.js Technical Documentation###
+####v0.01####
+<br>
 
-/* The firing of Snowplow will wait until all of the conversion events can be entered here
-//Starting the Snowplow tracking script
+The purpose of this document is to provide an overall explanation of the following Javascript code and provide an explanation of each function and code block.
+<br><br>
+
+**Overview:**
+This is version 0.01 of the Main specific Viper Config JS helper file.  This file is used to contain and run all of the Main site-specific code, such as lookup tables, page load code, event functions, etc... 
+
+
+This first section is to set the specific parameters for Snowplow on different pages/sites, and then launch the Snowplow Analytics tracker.
+
+```
 if (viper.dom.domain.indexOf(carbonite.com)>-1 && (viper.dom.domain.indexOf("dev")===-1 || viper.dom.domain.indexOf("carboniteinc")===-1)){
     viper.sp_appId = 'main-prod';
     viper.sp_platform = 'web';
@@ -31,7 +38,8 @@ if (viper.dom.domain.indexOf(carbonite.com)>-1 && (viper.dom.domain.indexOf("dev
     viper.sp_cookieDomain = ".carbonite.com";
     viper.sp_cookieName = "_holocron_";
 }
-
+```
+```
 //Fire Snowplow Tag{
     window.snowplow('newTracker', 'co', 's-threads.analytics.carbonite.com', {
         appId: viper.sp_appId,
@@ -39,7 +47,8 @@ if (viper.dom.domain.indexOf(carbonite.com)>-1 && (viper.dom.domain.indexOf("dev
         cookieDomain: viper.sp_cookieDomain,
         cookieName: viper.sp_cookieName
     });
-
+```
+```
     window.snowplow('enableActivityTracking', 30, 10);
     window.snowplow('enableLinkClickTracking');
     window.snowplow('trackPageView', false, null);
@@ -54,20 +63,22 @@ if (viper.dom.domain.indexOf(carbonite.com)>-1 && (viper.dom.domain.indexOf("dev
     };
 
     window.snowplow('enableFormTracking', bl);
-*/
+```
 
-//Determining Tealium Environment and launching Tealium
+This second section is used to determine the Environment that will be used for Tealium, by using the Domain, URL, query string parameters and cookie values.  Once the Environment is determined, this function fires the Tealium function decalred in the Viper file.
+
+```
 (function () {
     if (viper.environment){
-    } else if ((!viper.environment) && (viper.dom.domain.indexOf("dev")>-1 || viper.dom.domain.indexOf("carboniteinc")>-1 || viper.dom.domain..indexOf("carbonitedev")>-1)) {
-        viper.environment = "dev";
-    } else {
+    }else{
         viper.environment = "prod";
     }
+
     //Check to see if a viper cookie exists and use its contents if it does
     if (viper.cp.viper) {
         viper.environment = viper.cp.viper;
     }
+
     //Check query string parameter for "viper=" to set environment
     if (viper.qp.viper) {
         viper.environment = viper.qp.viper;
@@ -78,3 +89,4 @@ if (viper.dom.domain.indexOf(carbonite.com)>-1 && (viper.dom.domain.indexOf("dev
     }
     viper.tealium();
 }());
+```

@@ -80,6 +80,7 @@ gulp.task('travis', ['build'], function() {
 
 });
 ```
+
 Travis is a plugin that takes the files that have been checked, tested and built above, and moves them in to the Content Delivery Network automatically.
 
 All of the above steps will automatically run every time a file is uploaded into the Github repository. 

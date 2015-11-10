@@ -1,4 +1,4 @@
-var pardot_version = "v0.01 : Thu Nov 05 2015 20:58:03 GMT-0800 (PST)";
+viper.pardot_version = "v0.01 : Thu Nov 05 2015 20:58:03 GMT-0800 (PST)";
 
 /*
  This file contains all of the site-specific code for Mailstore.com.  This information may contain conversion events,
@@ -77,6 +77,17 @@ if (viper.spCookieParams[3]) {
         document.getElementsByClassName("pct_session_id")[0].firstElementChild.value = viper.spCookieParams[3];
     }
 }
+
+//Set Page ID and Category
+(function() {
+    var category = viper.qp.category || "PARDOT-LANDING-PAGE-NO-TRACKING";
+    var page_id = viper.qp.page_id || location.pathname;
+
+    utag_data = {
+        page_id: page_id.toUpperCase(),
+        category: category.toUpperCase()
+    };
+}());
 
 //Determining Tealium Environment and launching Tealium
 (function () {
