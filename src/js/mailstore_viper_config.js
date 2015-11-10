@@ -205,5 +205,5 @@ if (~viper.dom["pathname"].indexOf("/en/mailstore-server-thankyou-inbox.aspx")) 
         viper.setCookie("viper", viper.environment);
     }
     viper.tealium();
-}())
+}());
 
