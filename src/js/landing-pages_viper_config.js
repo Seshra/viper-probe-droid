@@ -1,15 +1,26 @@
-var landingPage_version = "v0.02 : Thu Nov 05 2015 19:08:03 GMT-0800 (PST)";
+viper.landingPage_version = "v0.02 : Thu Nov 05 2015 19:08:03 GMT-0800 (PST)";
 /*
  This file contains all of the site-specific code for landing-pages.  This information may contain conversion events,
  */
 
 //Starting the Snowplow tracking script
-if (document.domain === "dev.pancommunications.com") {
+if (viper.dom.domain === "dev.pancommunications.com") {
+    viper.sp_appId = 'smb-grader-dev';
+    viper.sp_platform = 'web';
+    viper.sp_cookieDomain = ".businesscontinuitycalc.com";
+    viper.sp_cookieName = "viper-grader";
+}else if(viper.dom.domain.indexOf("businesscontinuitycalc.com")>-1) {
+    viper.sp_appId = 'smb-grader-prod';
+    viper.sp_platform = 'web';
+    viper.sp_cookieDomain = ".businesscontinuitycalc.com";
+    viper.sp_cookieName = "viper-grader";
+}
+
     window.snowplow('newTracker', 'co', 's-threads.analytics.carbonite.com', {
-        appId: 'smb-grader-dev',
-        platform: 'web',
-        cookieDomain: ".carbonite.com",
-        cookieName: "viper-grader"
+        appId: viper.sp_appId,
+        platform: viper.sp_platform,
+        cookieDomain: viper.sp_cookieDomain,
+        cookieName: viper.sp_cookieName
     });
 
     window.snowplow('enableActivityTracking', 10, 15);
@@ -59,7 +70,7 @@ if (document.domain === "dev.pancommunications.com") {
 //Determining Tealium Environment and launching Tealium
 (function () {
     if (viper.environment){
-    } else if ((!viper.environment) && (document.domain === "www.pancommunications.com" || document.domain === "pancommunications.com")) {
+    } else if ((!viper.environment) && (document.domain.indexOf("businesscontinuitycalc.com")>-1) {
         viper.environment = "prod";
     } else if ((!viper.environment) && document.domain === "dev.pancommunications.com") {
         viper.environment = "dev";

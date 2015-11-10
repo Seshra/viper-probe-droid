@@ -181,7 +181,7 @@ var viper = {
         var utag_data = utag_data || {};
 
         //creating the Snowplow script tag and inserting it at the bottom of the body tag
-        viper.snowplow(window, document, "script", "//d1qbbgtcslwdbx.cloudfront.net/2.2.0/sp.js", "snowplow");
+        viper.snowplow(window, document, "script", "//d1qbbgtcslwdbx.cloudfront.net/2.5.3/sp.js", "snowplow");
 
         //Adding div tag
         var div = document.createElement("div");

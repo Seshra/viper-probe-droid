@@ -1,20 +1,26 @@
 ###Viper.js Technical Documentation###
-####v0.03####
+####v0.04####
 <br>
 
-The purpose of this document is to provide an overall explanation of the following Javascript code and provide an explanation of each function and code block.
+###The purpose of this document is to provide an overall explanation of the following Javascript code and provide an explanation of each function and code block.###
 <br><br>
 
-Overview:
-In version 0.02 of viper.js, we are adding functionality to the 0.01 version of the viper.js.  The original version 0.01 was building a platform to launch the Tealium utag.js file using parameters supplied by the web page and/or user.  
+**Overview:**
+Viper.js is designed to be an analytics platform, requiring the end user place only one script tag to call the file, and one script tag to fire the one required function in the Viper code.  All other functionality is performed autonomously from wihin the base code, or the supporting config files.
 
-All of the functions and variables are stored in a JSON object called "viper".  This helps to eliminate the possibility of variable and function collisions, and keeps all elements compartmentalized and in one place for easy access.
+All of the functions and variables are stored in a JSON object called "viper".  Placing all of the elements inside of this object helps to eliminate the possibility of variable and function collisions, and keeps all elements compartmentalized and in one place for easy access.
 
 
-This line creates the JSON object which will contain all of the functions and variables:
+This first line line creates the JSON object which will contain all of the functions and variables:
 
 ```
 var viper = {
+```
+
+This second line is a timestamp and version number:
+
+```
+version: "v0.04 : Mon Nov 09 2015 10:00:36 GMT-0800 (PST)",
 ```
 
 This setCookie function takes three parameters and writes a cookie in the users browser.  The values are:<br>
@@ -124,48 +130,69 @@ The retrieve() function accepts two parameters, and allows the retrieval of any 
     },
 ```
 
-This getCookie function takes one parameter and returns the value of the cookie matching the parameters name.<br>
-*	"cname" -- Name of the cookie to be read.  The value of the cookie is returned.
-<p>example: `viper.getCookie("userName");` or `var user = viper.getCookie("userName");`</p>
+This tealium() function requires no parameters and sets up the Tealium script on the page and subsequently calls the Tealium script.  This script is called from the config files once the environment (dev or prod) is determined.
 
 ```
-"getCookie": function (cname) {
-	var name = cname + "=";
-	var ca = document.cookie.split(';');
-    for (var i = 0; i < ca.length; i++) {
-       	var c = ca[i];
-       	while (c.charAt(0) == ' ') c = c.substring(1);
-       	if (c.indexOf(name) === 0) return c.substring(name.length, c.length);
-	}
-       	return "";
-},
+tealium: function () {
+        var b = document.createElement("script");
+        b.setAttribute("id", "viper_tealium");
+        b.src = '//tags.tiqcdn.com/utag/carb/' + viper.application + '/' + viper.environment + '/utag.js';
+        b.type = 'text/javascript';
+        b.async = true;
+        document.getElementById('viper').appendChild(b);
+    },
 ```
 
-This getQP function takes one parameter and returns the value of the query string parameter matching the function parameters name.<br>
-*	"parameter" -- This is the name of the query string parameter to be read.  The value of this query string parameter will be returned.
-<p>example: `viper.getQP("ref");` or `var referrer = viper.getQP("ref");`</p>
-    	
-```
-    	"getQP": function (parameter) {
-       		 var query = window.location.search.substring(1);
-       		 var vars = query.split("&");
-        	 for (var i = 0; i < vars.length; i++) {
-            	var pair = vars[i].split("=");
-            	if (pair[0] == parameter) {
-                	return pair[1];
-            	}
-        	}
-        	return (false);
-    	},
-```
-
-This **category** variable is simply pulling the page level variable and placing it inside the viper object.
+This snowplow() function requires no parameters and calls the Snowplow's code base.  This function sets up the code for Snowplow to be rendered on the page.  The actual rendering process is called from within the launch() function later on.  The actual calling of the snowplow tag and starting of the Snowplow analytics is done from within the config files.
 
 ```
-category : utag_data.category,
-```   
+snowplow: function (p, l, o, w, i, n, g) {
+        if (!p[i]) {
+            p.GlobalSnowplowNamespace = p.GlobalSnowplowNamespace || [];
+            p.GlobalSnowplowNamespace.push(i);
+            p[i] = function () {
+                (p[i].q = p[i].q || []).push(arguments);
+            };
+            p[i].q = p[i].q || [];
+            n = l.createElement(o);
+            g = l.getElementsByTagName(o)[0];
+            n.async = 1;
+            n.src = w;
+            g.parentNode.insertBefore(n, g);
+        }
+    },
+```
 
-This **dom** property 
+This spCookie() function is used to retrieve the visitor and session data from Snowplow Analytics, and return it in to a variable called spCookieParams.
+
+```
+ spCookie: function(){
+        window.snowplow(function () {
+            viper.spCookieParams = this.co.getDomainUserInfo();
+        });
+    },
+```
+
+These next two functions are for checking jQuery.
+The first one, called jqueryTest() checks the page to see if jQuery exists.  The second one, called jqueryVersion returns the version of the jQuery.
+
+```
+jqueryTest: function(){
+      if (typeof jQuery === "function"){return true;}
+    },
+```
+```
+jqueryVersion: function(){
+      if (viper.jqueryTest() === true){
+          return jQuery.fn.jquery;
+    }else{
+          return "jQuery Not Installed";
+        }
+    },
+```
+
+These are the **dom** elements, imported into Viper for convenient access.
+
 ```
     dom : {
         url : document.URL,
@@ -177,34 +204,53 @@ This **dom** property
     },
 ```
 
+These are the browser elements, imported into Viper for convenient access.
+
+```
+browser: {
+        cookies_enabled: navigator.cookieEnabled,
+        browser_language: navigator.language,
+        browser_version: navigator.appVersion,
+        java_enabled: navigator.javaEnabled()
+     },
+```
+
 The "application" and "environment" properties are only for use in the Tealium code at this point, and are only used in the `viper.launch()` function.  The **application** property equates to the Profile parameter in Tealium where the **environment** property equates to the environments parameter in Tealium.  These two parameters are to be set via page code prior to the `viper.launch();` call being made.<br>
 <p>example: `viper.application = "main"; viper.environment = "prod";`</p>
     	
 ```
-"application": "",
-"environment": "",
-```
-    	
-This launch function is what ultimately makes the call to Tealium to fire the utag.js Javascript code.  This function contains 5 main code blocks.<br>
-1. The firing of the functions above to gather and insert the query string, cookie and meta tag data into the **viper** object.
-2. Code to declare a utag_data object.  If one already exists, it uses the existing value.  If one does not exist, it creates an empty object.<br>
-3. Statements to check and determine the correct Tealium environment<br>
-4. Code to call the Snowplow Analytics script.<br>
-5. Code block to call the viper_config.js file, if one exists for a particular site
-6. Code to add a `<script>` tag into the page above the closing body tag, that fires the secondary **x_viper_config.js** file.<br>
-7. Code to add a `<div>` tag into the page, just above the closing `</body>` tag.<br>
-8. Code to add a `<script>` tag into the `<div>` tag created above.  This is what fires the utag.js file.    	
-    	
-```
-"launch": function () {
+application: "",
+environment: "",
 ```
 
-1. This first section fires the three functions that gather the query string, cookie and meta tag data, and insert it into the viper object.  
+The next two elements are whitelists used by Viper functions. The **qs_wl** is used to determine what query string parameters can be imported into Viper.  The **app_wl** limits what can be passed trough the **Application** variable and into Tealium.  This prevents someone from loading non-whitelisted Tealium code on to the pages.
+
+```
+qs_wl: ["environment", "utm_source", "utm_medium", "utm_campaign", "utm_content", "Category", "Page_ID"],
+app_wl: ["mailstore", "pardot", "test-pardot", "landing-pages","main"],
+```
+
+    	
+This launch function is what calls a number of utility functions as well as setting up the necessary div tags to contain Snowplow and Tealium script tagsultimately makes the call to Tealium to fire the utag.js Javascript code.  This function contains 5 main code blocks.<br>
+1. The firing of the functions above to gather and insert the query string, cookie and meta tag data into the **viper** object.
+2. Code to declare a utag_data object.  If one already exists, it uses the existing value.  If one does not exist, it creates an empty object.<br>
+3. Code to call the Snowplow Analytics script.<br>
+4. Code to add a `<div>` tag into the page, just above the closing `</body>` tag.<br>
+5. Code to add a `<script>` tag into the page above the closing body tag, that fires the secondary **x_viper_config.js** file.<br>
+   	
+    	
+```
+launch: function (app) {
+```
+
+1. This first section fires the five functions that gather the query string, cookie, meta tag and jQuery data, and insert it into the viper object.  
 
     ```
         viper.qpToObj();
         viper.cookieToObj();
         viper.metaToObj();
+        viper.browser["jquery_enabled"] = viper.jqueryTest();
+        viper.browser["jquery_version"] = viper.jqueryVersion();
     ```           
 
 2. This code declares an object named **utag_data**, if none exists.  If a utag_data object already exists, then the existing object is used.  If there is no existing utag_data object, and empty object is created.  This utag_data object is required for Tealium to function properly.        	
@@ -213,32 +259,22 @@ This launch function is what ultimately makes the call to Tealium to fire the ut
         var utag_data = utag_data || {};
      ```
 
-3. Tealium Environment 
-
-    This if statement checks to see if there is a cookie property the name of **_viper_**.  If there is, then the value of the viper.environment is overwritten with the value of the **_viper_** cookie parameter.
-
-    ```
-        if (this.cp.viper){this.environment = this.cp.viper;}
-    ```
-   			
-    This if statement checks the query string property (viper.qp) for **"viper="**.  If there is a query string property named **_viper_** (viper.qp.viper), then the value of the _viper.environment_ is overwritten with the value of the **_viper_** query string property.
-        
-    ```
-        if (this.qp.viper){this.environment = this.qp.viper;}
-    ```
-            	
-     This if statement compares the query string property **_viper_** (viper.cp.viper) to the current setting for the _viper.environment_ variable.  If they do not match, then a **_viper_** cookie is created/updated with the current _viper.environment_ value.  If the values do match, the operator simply returns the current value for _viper.environment_ and no cookie is written or updated.
-
-    ```        	
-        if (this.cp.viper !== this.environment){this.setCookie("viper", this.environment);}
-    ```
-    
-4. This line of code calls the snowplow script.  The actual script is called from the config file for the specific site or site section.
+3. This line of code calls the snowplow script.  The actual script is called from the config file for the specific site or site section.
     
     ```
             viper.snowplow(window, document, "script", "//d1qbbgtcslwdbx.cloudfront.net/2.2.0/sp.js", "snowplow");
     ```
     
+4. This code block creates a `<div>` tag with and "id" of **viper**, and a visibiulity setting of "hidden as well as a display setting of "none".  With the combination of the visibility and display parameters, the `<div>` tag will not be visible on the page and will not take up any space on the page.  The last part of this code appends this newly created `<div>` tag into the `<body>` section of the page, just above the closing `</body>` tag. 
+
+    ```
+        var div = document.createElement("div");
+        div.setAttribute('id', 'viper');
+        div.style.visibility = 'hidden';
+        div.style.display = 'none';
+        document.body.appendChild(div);
+    ```
+
 5. This code block calls the config files (helper files) for the specific sites or sub-sites.  It calls the *_viper_config.js file based on viper.application value.  The code only runs if the value in the **_application_** variable matches what is in the **_app_wl_** (application whitelist.  
    This whitelist determines which sites or sub-sites have a config file, and can access them. 
             
@@ -250,36 +286,5 @@ This launch function is what ultimately makes the call to Tealium to fire the ut
        conf.type = 'text/javascript';
        document.body.appendChild(conf);
             }
+    };
     ```
-    
-6. This code block creates and inserts a `<script>` tag that calls the **x_viper_config.js** file, which contains all of the conversion event tracking code.  This uses the value of the **application** variable to determine which file to call.
-    
-    ```
-        var b = document.createElement("script");
-        b.setAttribute("id", "viper_config");
-        b.src = '//viper.analytics.carbonite.com/'+viper.application+'_viper_config.js';
-        b.type = 'text/javascript';
-        document.body.appendChild(b);
-    ```
-           
-7. This code block creates a `<div>` tag with and "id" of **viper**, and a visibiulity setting of "hidden as well as a display setting of "none".  With the combination of the visibility and display parameters, the `<div>` tag will not be visible on the page and will not take up any space on the page.  The last part of this code appends this newly created `<div>` tag into the `<body>` section of the page, just above the closing `</body>` tag. 
-
-    ```
-        var div = document.createElement("div");
-        div.setAttribute('id', 'viper');
-        div.style.visibility = 'hidden';
-        div.style.display = 'none';
-        document.body.appendChild(div);
-    ```
-
-8. This last piece of the `viper.launch()` function is the creation and insertion of the call to the Tealium utag.js file.  This code creates an asynch `<script>` tag that contains the call to the Tealium utag.js file.  The assembly of the **src** pulls the **viper.application** and **viper.environment** to build for the correct file location.  Once this `<script>` tag is inserted, the call to the utag.js occurs and starts the Analytics process.            	
-
-    ```
-        var b = document.createElement("script");
-        b.src = '//tags.tiqcdn.com/utag/carb/' + this.application + '/' + this.environment + '/utag.js';
-        b.type = 'text/javascript';
-        b.async = true;
-        document.getElementById('viper').appendChild(b);
-    }
-};
-```
