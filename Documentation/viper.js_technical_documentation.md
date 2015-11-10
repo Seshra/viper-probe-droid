@@ -189,9 +189,11 @@ This launch function is what ultimately makes the call to Tealium to fire the ut
 1. The firing of the functions above to gather and insert the query string, cookie and meta tag data into the **viper** object.
 2. Code to declare a utag_data object.  If one already exists, it uses the existing value.  If one does not exist, it creates an empty object.<br>
 3. Statements to check and determine the correct Tealium environment<br>
-4. Code to add a `<script>` tag into the page above the closing body tag, that fires the secondary **x_viper_config.js** file.<br>
-5. Code to add a `<div>` tag into the page, just above the closing `</body>` tag.<br>
-6. Code to add a `<script>` tag into the `<div>` tag created above.  This is what fires the utag.js file.    	
+4. Code to call the Snowplow Analytics script.<br>
+5. Code block to call the viper_config.js file, if one exists for a particular site
+6. Code to add a `<script>` tag into the page above the closing body tag, that fires the secondary **x_viper_config.js** file.<br>
+7. Code to add a `<div>` tag into the page, just above the closing `</body>` tag.<br>
+8. Code to add a `<script>` tag into the `<div>` tag created above.  This is what fires the utag.js file.    	
     	
 ```
 "launch": function () {
@@ -231,7 +233,26 @@ This launch function is what ultimately makes the call to Tealium to fire the ut
         if (this.cp.viper !== this.environment){this.setCookie("viper", this.environment);}
     ```
     
-4. This code block creates and inserts a `<script>` tag that calls the **x_viper_config.js** file, which contains all of the conversion event tracking code.  This uses the value of the **application** variable to determine which file to call.
+4. This line of code calls the snowplow script.  The actual script is called from the config file for the specific site or site section.
+    
+    ```
+            viper.snowplow(window, document, "script", "//d1qbbgtcslwdbx.cloudfront.net/2.2.0/sp.js", "snowplow");
+    ```
+    
+5. This code block calls the config files (helper files) for the specific sites or sub-sites.  It calls the *_viper_config.js file based on viper.application value.  The code only runs if the value in the **_application_** variable matches what is in the **_app_wl_** (application whitelist.  
+   This whitelist determines which sites or sub-sites have a config file, and can access them. 
+            
+    ```
+    if (viper.contains(viper.app_wl, viper.application) === true) {
+       var conf = document.createElement("script");
+       conf.setAttribute("id", "viper_config");
+       conf.src = '//viper.analytics.carbonite.com/' + viper.application + '_viper_config.js';
+       conf.type = 'text/javascript';
+       document.body.appendChild(conf);
+            }
+    ```
+    
+6. This code block creates and inserts a `<script>` tag that calls the **x_viper_config.js** file, which contains all of the conversion event tracking code.  This uses the value of the **application** variable to determine which file to call.
     
     ```
         var b = document.createElement("script");
@@ -241,7 +262,7 @@ This launch function is what ultimately makes the call to Tealium to fire the ut
         document.body.appendChild(b);
     ```
            
-5. This code block creates a `<div>` tag with and "id" of **viper**, and a visibiulity setting of "hidden as well as a display setting of "none".  With the combination of the visibility and display parameters, the `<div>` tag will not be visible on the page and will not take up any space on the page.  The last part of this code appends this newly created `<div>` tag into the `<body>` section of the page, just above the closing `</body>` tag. 
+7. This code block creates a `<div>` tag with and "id" of **viper**, and a visibiulity setting of "hidden as well as a display setting of "none".  With the combination of the visibility and display parameters, the `<div>` tag will not be visible on the page and will not take up any space on the page.  The last part of this code appends this newly created `<div>` tag into the `<body>` section of the page, just above the closing `</body>` tag. 
 
     ```
         var div = document.createElement("div");
@@ -251,7 +272,7 @@ This launch function is what ultimately makes the call to Tealium to fire the ut
         document.body.appendChild(div);
     ```
 
-6. This last piece of the `viper.launch()` function is the creation and insertion of the call to the Tealium utag.js file.  This code creates an asynch `<script>` tag that contains the call to the Tealium utag.js file.  The assembly of the **src** pulls the **viper.application** and **viper.environment** to build for the correct file location.  Once this `<script>` tag is inserted, the call to the utag.js occurs and starts the Analytics process.            	
+8. This last piece of the `viper.launch()` function is the creation and insertion of the call to the Tealium utag.js file.  This code creates an asynch `<script>` tag that contains the call to the Tealium utag.js file.  The assembly of the **src** pulls the **viper.application** and **viper.environment** to build for the correct file location.  Once this `<script>` tag is inserted, the call to the utag.js occurs and starts the Analytics process.            	
 
     ```
         var b = document.createElement("script");

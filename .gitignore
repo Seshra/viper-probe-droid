@@ -47,3 +47,6 @@ dist/*
 
 # Vagrant
 .vagrant
+
+#html
+src/html/*.html
