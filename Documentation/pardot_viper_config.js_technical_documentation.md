@@ -38,7 +38,7 @@ var bl = {
 window.snowplow('enableFormTracking', bl);
 ```
 
-This second section of code is used to set a cooki named "catid" with the information found in the query string parameter called "catid".
+This second section of code is used to set a cookie named "catid" with the information found in the query string parameter called "catid".
 
 ```
 if (viper.qp.catid){
