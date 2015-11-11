@@ -58,47 +58,13 @@ if (viper.dom.domain.indexOf(carbonite.com)>-1 && (viper.dom.domain.indexOf("dev
 
 
 //Snowplow Conversions
-
 if (viper.dom.pathname.toLowerCase().indexOf("/install/download")>-1){
-    window.snowplow("trackUnstructEvent", {
-            schema: "iglu:com.carbonite/trial_download/jsonschema/1-0-0",
-            data: {
-                timeStamp: new Date(),
-                event_points: "80"
-            }
-        },
-        [{
-                schema: "iglu:com.carbonite/product/jsonschema/2-0-0",
-                data: {
-                    brand: "Carbonite",
-                    lob: "Personal",
-                    product: "Personal Trial",
-                    product_level: "Trial"
-                }
-            }]
-    );
+    viper.igluEvent("trial_download", "1-0-0", {timeStamp: new Date(),event_points: "80"}, {}, {brand: "Carbonite", lob: "Personal", product: "Personal Trial", product_level: "Trial"});
 }
+
 if (viper.dom.url.toLowerCase().indexOf("account.carbonite.com/smb/dashboard") && viper.qp.newacct === 1){
-    window.snowplow("trackUnstructEvent", {
-            schema: "iglu:com.carbonite/trial_download/jsonschema/1-0-0",
-            data: {
-                timeStamp: new Date(),
-                event_points: "400"
-            }
-        },
-        [{
-            schema: "iglu:com.carbonite/product/jsonschema/2-0-0",
-            data: {
-                brand: "Carbonite",
-                lob: "SMB",
-                product: "SMB Trial",
-                product_level: "Trial"
-            }
-        }]
-    );
+    viper.igluEvent("trial_download", "1-0-0", {timeStamp: new Date(),event_points: "400"}, {}, {brand: "Carbonite", lob: "SMB", product: "SMB Trial", product_level: "Trial"});
 }
-
-
 
 
 //Determining Tealium Environment and launching Tealium
