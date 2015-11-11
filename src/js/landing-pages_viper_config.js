@@ -65,12 +65,12 @@ if (viper.dom.domain === "dev.pancommunications.com") {
             });
         })();
     }
-}
+
 
 //Determining Tealium Environment and launching Tealium
 (function () {
     if (viper.environment){
-    } else if ((!viper.environment) && (document.domain.indexOf("businesscontinuitycalc.com")>-1) {
+    } else if ((!viper.environment) && document.domain.indexOf("businesscontinuitycalc.com")>-1) {
         viper.environment = "prod";
     } else if ((!viper.environment) && document.domain === "dev.pancommunications.com") {
         viper.environment = "dev";
