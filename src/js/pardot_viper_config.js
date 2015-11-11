@@ -13,7 +13,6 @@ viper.pardot_version = "v0.01 : Thu Nov 05 2015 20:58:03 GMT-0800 (PST)";
  });
 
  window.snowplow('enableActivityTracking', 30, 10);
-
  window.snowplow('enableLinkClickTracking');
  window.snowplow('trackPageView', false, null);
 

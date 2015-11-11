@@ -76,7 +76,7 @@ if (viper.dom.pathname.toLowerCase().indexOf("/install/download")>-1){
                     product_level: "Trial"
                 }
             }]
-    )
+    );
 }
 if (viper.dom.url.toLowerCase().indexOf("account.carbonite.com/smb/dashboard") && viper.qp.newacct === 1){
     window.snowplow("trackUnstructEvent", {
@@ -95,7 +95,7 @@ if (viper.dom.url.toLowerCase().indexOf("account.carbonite.com/smb/dashboard") &
                 product_level: "Trial"
             }
         }]
-    )
+    );
 }
 
 
@@ -104,7 +104,7 @@ if (viper.dom.url.toLowerCase().indexOf("account.carbonite.com/smb/dashboard") &
 //Determining Tealium Environment and launching Tealium
 (function () {
     if (viper.environment){
-    } else if ((!viper.environment) && (viper.dom.domain.indexOf("dev")>-1 || viper.dom.domain.indexOf("carboniteinc")>-1 || viper.dom.domain..indexOf("carbonitedev")>-1)) {
+    } else if ((!viper.environment) && (viper.dom.domain.indexOf("dev")>-1 || viper.dom.domain.indexOf("carboniteinc")>-1 || viper.dom.domain.indexOf("carbonitedev")>-1)) {
         viper.environment = "dev";
     } else {
         viper.environment = "prod";
