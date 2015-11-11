@@ -120,6 +120,17 @@ var viper = {
         }
     },
 
+    //Function to streamline creation of IGLU event (unstructured)
+    igluEvent: function(event,eventVer,eventData,userData,productData){
+        window.snowplow("trackUnstructEvent", {
+            schema: "iglu:com.carbonite/"+event+"/jsonschema/"+eventVer,
+                data: eventData},
+            [{schema: "iglu:com.carbonite/user/jsonschema/1-0-0",
+                data: userData},
+            {schema: "iglu:com.carbonite/product/jsonschema/2-0-0",
+                data: productData}]);
+    },
+
     //Function to return Snowplow Cookie parameters
     spCookie: function(){
         window.snowplow(function () {

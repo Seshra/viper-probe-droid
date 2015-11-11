@@ -53,16 +53,8 @@ if (viper.dom.domain === "dev.pancommunications.com") {
             businessNum = parseInt(businessNum);
 
             //Snowplow Event Tracking
-            window.snowplow("trackUnstructEvent", {
-                schema: "iglu:com.carbonite/grader_score/jsonschema/1-0-0",
-                data: {
-                    timeStamp: new Date(),
-                    backup_score: backupNum,
-                    recovery_score: recoveryNum,
-                    operations_score: continuousNum,
-                    business_continuity_score: businessNum
-                }
-            });
+            viper.igluEvent("grader_score", "1-0-0", {timeStamp: new Date(), backup_score: backupNum, recovery_score: recoveryNum, operations_score: continuousNum, business_continuity_score: businessNum}, {}, {});
+
         })();
     }
 
