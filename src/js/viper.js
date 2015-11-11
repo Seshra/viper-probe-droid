@@ -174,8 +174,8 @@ var viper = {
         viper.qpToObj();
         viper.cookieToObj();
         viper.metaToObj();
-        viper.browser["jquery_enabled"] = viper.jqueryTest();
-        viper.browser["jquery_version"] = viper.jqueryVersion();
+        viper.browser.jquery_enabled = viper.jqueryTest();
+        viper.browser.jquery_version = viper.jqueryVersion();
 
         //Checks to see if utag_data object exists, and if not, sets an empty object.
         var utag_data = utag_data || {};
