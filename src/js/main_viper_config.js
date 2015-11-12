@@ -9,7 +9,7 @@ if (viper.dom.domain.indexOf(carbonite.com)>-1 && (viper.dom.domain.indexOf("dev
     viper.sp_platform = 'web';
     viper.sp_cookieDomain = ".carbonite.com";
     viper.sp_cookieName = "_holocron_";
-}else if (viper.dom.domain.indexOf("dev")>-1 || viper.dom.domain.indexOf("carboniteinc")>-1 || viper.dom.domain..indexOf("carbonitedev")>-1){
+}else if (viper.dom.domain.indexOf("dev")>-1 || viper.dom.domain.indexOf("carboniteinc")>-1 || viper.dom.domain.indexOf("carbonitedev")>-1){
     viper.sp_appId = 'tealium-dev';
     viper.sp_platform = 'web';
     viper.sp_cookieDomain = ".carboniteinc.com";
