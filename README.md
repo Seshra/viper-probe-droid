@@ -77,7 +77,7 @@ Passing variables and data via this object can be accomplished using standard JS
 
 #####**Step 3 - Calling the Viper Launch code**
 
-TThe code in this final step is what actually fires all of the analytics code, including Tealium and Snowplow.  This also calls helper files that set up and conversions that will be tracked on that page.  You'll notice the "main" inside the parenthesis.  This is the designator for which Tealium profile to use on that page, as well as which helper file is to be included on that page.
+The code in this final step is what actually fires all of the analytics code, including Tealium and Snowplow.  This also calls helper files that set up and conversions that will be tracked on that page.  You'll notice the "main" inside the parenthesis.  This is the designator for which Tealium profile to use on that page, as well as which helper file is to be included on that page.
 The launch code looks like this:
  
  ````bash

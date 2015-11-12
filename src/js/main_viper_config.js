@@ -1,9 +1,8 @@
-viper.main_version = "v0.01 : Mon Nov 09 2015 15:07:20 GMT-0800 (PST)";
+viper.main_version = "v0.02 : Wed Nov 11 2015 16:04:08 GMT-0800 (PST)";
 /*
  This file contains all of the site-specific code for main pages.  This information may contain conversion events
  */
 
-/* The firing of Snowplow will wait until all of the conversion events can be entered here
 //Starting the Snowplow tracking script
 if (viper.dom.domain.indexOf(carbonite.com)>-1 && (viper.dom.domain.indexOf("dev")===-1 || viper.dom.domain.indexOf("carboniteinc")===-1)){
     viper.sp_appId = 'main-prod';
@@ -32,7 +31,7 @@ if (viper.dom.domain.indexOf(carbonite.com)>-1 && (viper.dom.domain.indexOf("dev
     viper.sp_cookieName = "_holocron_";
 }
 
-//Fire Snowplow Tag{
+//Fire Snowplow Tag
     window.snowplow('newTracker', 'co', 's-threads.analytics.carbonite.com', {
         appId: viper.sp_appId,
         platform: viper.sp_platform,
@@ -54,17 +53,20 @@ if (viper.dom.domain.indexOf(carbonite.com)>-1 && (viper.dom.domain.indexOf("dev
     };
 
     window.snowplow('enableFormTracking', bl);
-*/
+
 
 
 //Snowplow Conversions
+//Trial Download - Personal
 if (viper.dom.pathname.toLowerCase().indexOf("/install/download")>-1){
     viper.igluEvent("trial_download", "1-0-0", {timeStamp: new Date(),event_points: "80"}, {}, {brand: "Carbonite", lob: "Personal", product: "Personal Trial", product_level: "Trial"});
 }
-
+//Trial Download - SMB
 if (viper.dom.url.toLowerCase().indexOf("account.carbonite.com/smb/dashboard") && viper.qp.newacct === 1){
     viper.igluEvent("trial_download", "1-0-0", {timeStamp: new Date(),event_points: "400"}, {}, {brand: "Carbonite", lob: "SMB", product: "SMB Trial", product_level: "Trial"});
 }
+//Purchase Conversion
+if (viper.dom.pathname.toLowerCase().indexOf("")>-1)
 
 
 //Determining Tealium Environment and launching Tealium
@@ -89,3 +91,68 @@ if (viper.dom.url.toLowerCase().indexOf("account.carbonite.com/smb/dashboard") &
     }
     viper.tealium();
 }());
+
+//Process and send transaction data to Snowplow
+if (viper.dom.pathname.toLowerCase().indexOf()>-1 || viper.dom.pathname.toLowerCase().indexOf()>-1 || viper.dom.pathname.toLowerCase().indexOf()>-1){
+    if (viper.dom.pathname.indexOf("/buy/ordercomplete")>-1 || viper.dom.pathname.indexOf("/buy/ordercomplete")>-1){
+        viper.spStore = "Direct";
+    }
+    if (viper.dom.pathname.indexOf("/buy/confirmation")>-1){
+        viper.spStore = "Reseller";
+    }
+
+    typeof utag_data.trans_type == "string" ? [utag_data.trans_type] : utag_data.trans_type;
+
+    if(utag_data.order_id && utag_data.skus.length > 1){
+        utag_data.trans_type = utag_data.trans_type || [];
+        for(var i=0; i<utag_data.skus.length; i++){
+            if(typeof utag_data.trans_type[i] === "undefined" || utag_data.trans_type[i] === "")
+                utag_data.trans_type[i] = "MultiSubscriptions";
+        }
+    }
+
+    if(viper.cp.viper_order_id === utag_data.order_id){
+        b._corder = "";
+    }
+
+    if (utag_data.order_id && utag_data.order_id !== ""){
+        viper.setCookie("viper_order_id",utag_data.order_id);
+    }
+
+//mapping Commerce variables in to Viper
+    viper.spOrderId = utag_data.order_id;
+    viper.spStore = viper.spStore || "";
+    viper.spOrderTotal = utag_data.transaction_total;
+    viper.spOrderTax = "0.00";
+    viper.spOrderShipping = "0.00";
+    viper.spOrderCity = "";
+    viper.spOrderState = "";
+    viper.spOrderCountry = "";
+    viper.spOrderCurrency = "USD";
+
+//Adding Commerce Transaction
+    if (utag_data.order_id) {
+        window.snowplow('addTrans',
+            viper.spOrderId,
+            viper.spStore,
+            viper.spOrderTotal,
+            viper.spOrderTax,
+            viper.spOrderShipping,
+            viper.spOrderCity,
+            viper.spOrderState,
+            viper.spOrderCountry,
+            viper.spOrderCurrency
+        );
+        for (var t = 0; t < utag_data.product_names.length; t++) {
+            window.snowplow('addItem',
+                viper.spOrderId,
+                utag_data.skus[t],
+                utag_data.product_names[t] || "",
+                utag_data.trans_type[t] || "",
+                utag_data.unit_price[t],
+                utag_data.quantities[t]
+            );
+        }
+        window.snowplow('trackTrans');
+    }
+}
