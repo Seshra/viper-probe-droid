@@ -78,7 +78,11 @@ function pctFromSP() {
             document.getElementsByClassName("pct_session_id")[0].firstElementChild.value = viper.spCookieParams[3];
         }
     }
-}setTimeout(pctFromSP, 3000);
+
+    utag_data.sp_domain_user_id = viper.spCookieParams[1];
+    utag_data.sp_session_id = viper.spCookieParams[3];
+    utag_data.sp_domain_session_id = utag_data.sp_domain_user_id + "-" + utag_data.sp_session_id;
+}setTimeout(pctFromSP, 500);
 
 //Set Page ID and Category
 (function () {
