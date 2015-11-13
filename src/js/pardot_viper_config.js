@@ -33,34 +33,34 @@ if (viper.qp.catid) {
 }
 
 //code to inject information into Hidden Form Field
-if (viper.qp.utm_medium) {
+if (viper.cp.viper_utm_medium) {
     if (document.getElementsByClassName("pct_medium")[0]) {
-        document.getElementsByClassName("pct_medium")[0].firstElementChild.value = viper.qp.utm_medium;
+        document.getElementsByClassName("pct_medium")[0].firstElementChild.value = viper.cp.viper_utm_medium;
     }
 }
-if (viper.qp.utm_source) {
+if (viper.cp.viper_utm_source) {
     if (document.getElementsByClassName("pct_source")[0]) {
-        document.getElementsByClassName("pct_source")[0].firstElementChild.value = viper.qp.utm_source;
+        document.getElementsByClassName("pct_source")[0].firstElementChild.value = viper.cp.viper_utm_source;
     }
 }
-if (viper.qp.utm_campaign) {
+if (viper.cp.viper_utm_campaign) {
     if (document.getElementsByClassName("pct_placement_group")[0]) {
-        document.getElementsByClassName("pct_placement_group")[0].firstElementChild.value = viper.qp.utm_campaign;
+        document.getElementsByClassName("pct_placement_group")[0].firstElementChild.value = viper.cp.viper_utm_campaign;
     }
 }
-if (viper.qp.utm_content) {
+if (viper.cp.viper_utm_content) {
     if (document.getElementsByClassName("pct_placement")[0]) {
-        document.getElementsByClassName("pct_placement")[0].firstElementChild.value = viper.qp.utm_content;
+        document.getElementsByClassName("pct_placement")[0].firstElementChild.value = viper.cp.viper_utm_content;
     }
 }
-if (viper.qp.Category) {
+if (viper.cp.viper_Category) {
     if (document.getElementsByClassName("pct_categoryID")[0]) {
-        document.getElementsByClassName("pct_categoryID")[0].firstElementChild.value = viper.qp.Category;
+        document.getElementsByClassName("pct_categoryID")[0].firstElementChild.value = viper.cp.viper_Category;
     }
 }
-if (viper.qp.Page_ID) {
+if (viper.cp.viper_Page_ID) {
     if (document.getElementsByClassName("pct_pageID")[0]) {
-        document.getElementsByClassName("pct_pageID")[0].firstElementChild.value = viper.qp.Page_ID;
+        document.getElementsByClassName("pct_pageID")[0].firstElementChild.value = viper.cp.viper_Page_ID;
     }
 }
 
@@ -78,7 +78,11 @@ function pctFromSP() {
             document.getElementsByClassName("pct_session_id")[0].firstElementChild.value = viper.spCookieParams[3];
         }
     }
-}setTimeout(pctFromSP, 3000);
+
+    utag_data.sp_domain_user_id = viper.spCookieParams[1];
+    utag_data.sp_session_id = viper.spCookieParams[3];
+    utag_data.sp_domain_session_id = utag_data.sp_domain_user_id + "-" + utag_data.sp_session_id;
+}setTimeout(pctFromSP, 500);
 
 //Set Page ID and Category
 (function () {
