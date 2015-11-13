@@ -65,24 +65,23 @@ if (viper.cp.viper_Page_ID) {
 }
 
 //Run function to return Snowplow Visitor and Session Information and insert into form fields
-function pctFromSP() {
-    viper.spCookie();
+viper.spCookie();
 
-    if (viper.spCookieParams) {
-        if (document.getElementsByClassName("pct_user_id")[0]) {
-            document.getElementsByClassName("pct_user_id")[0].firstElementChild.value = viper.spCookieParams[1];
-        }
+if (viper.spCookieParams) {
+    if (document.getElementsByClassName("pct_user_id")[0]) {
+        document.getElementsByClassName("pct_user_id")[0].firstElementChild.value = viper.spCookieParams[1];
     }
-    if (viper.spCookieParams) {
-        if (document.getElementsByClassName("pct_session_id")[0]) {
-            document.getElementsByClassName("pct_session_id")[0].firstElementChild.value = viper.spCookieParams[3];
-        }
+}
+if (viper.spCookieParams) {
+    if (document.getElementsByClassName("pct_session_id")[0]) {
+        document.getElementsByClassName("pct_session_id")[0].firstElementChild.value = viper.spCookieParams[3];
     }
+}
 
-    utag_data.sp_domain_user_id = viper.spCookieParams[1];
-    utag_data.sp_session_id = viper.spCookieParams[3];
-    utag_data.sp_domain_session_id = utag_data.sp_domain_user_id + "-" + utag_data.sp_session_id;
-}setTimeout(pctFromSP, 2000);
+utag_data.sp_domain_user_id = viper.spCookieParams[1];
+utag_data.sp_session_id = viper.spCookieParams[3];
+utag_data.sp_domain_session_id = utag_data.sp_domain_user_id + "-" + utag_data.sp_session_id;
+
 
 //Set Page ID and Category
 (function () {

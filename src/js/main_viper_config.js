@@ -1,4 +1,4 @@
-viper.main_version = "v0.02 : Wed Nov 11 2015 16:04:08 GMT-0800 (PST)";
+viper.main_version = "v0.03 : Fri Nov 13 2015 14:53:37 GMT-0800 (PST)";
 /*
  This file contains all of the site-specific code for main pages.  This information may contain conversion events
  */
@@ -43,6 +43,7 @@ if (viper.dom.domain.indexOf(carbonite.com)>-1 && (viper.dom.domain.indexOf("dev
     window.snowplow('enableLinkClickTracking');
     window.snowplow('trackPageView', false, null);
 
+/*
     var bl = {
         forms: {
             blacklist: []
@@ -53,7 +54,7 @@ if (viper.dom.domain.indexOf(carbonite.com)>-1 && (viper.dom.domain.indexOf("dev
     };
 
     window.snowplow('enableFormTracking', bl);
-
+*/
 
 
 //Snowplow Conversions
@@ -65,8 +66,6 @@ if (viper.dom.pathname.toLowerCase().indexOf("/install/download")>-1){
 if (viper.dom.url.toLowerCase().indexOf("account.carbonite.com/smb/dashboard") && viper.qp.newacct === 1){
     viper.igluEvent("trial_download", "1-0-0", {timeStamp: new Date(),event_points: "400"}, {}, {brand: "Carbonite", lob: "SMB", product: "SMB Trial", product_level: "Trial"});
 }
-//Purchase Conversion
-if (viper.dom.pathname.toLowerCase().indexOf("")>-1)
 
 
 //Determining Tealium Environment and launching Tealium
@@ -92,9 +91,10 @@ if (viper.dom.pathname.toLowerCase().indexOf("")>-1)
     viper.tealium();
 }());
 
+
 //Process and send transaction data to Snowplow
-if (viper.dom.pathname.toLowerCase().indexOf()>-1 || viper.dom.pathname.toLowerCase().indexOf()>-1 || viper.dom.pathname.toLowerCase().indexOf()>-1){
-    if (viper.dom.pathname.indexOf("/buy/ordercomplete")>-1 || viper.dom.pathname.indexOf("/buy/ordercomplete")>-1){
+if (viper.dom.pathname.toLowerCase("/buy/ordercomplete").indexOf("/buy/completeorder")>-1 || viper.dom.pathname.toLowerCase("/buy/confirmation").indexOf()>-1){
+    if (viper.dom.pathname.indexOf("/buy/ordercomplete")>-1 || viper.dom.pathname.indexOf("/buy/completeorder")>-1){
         viper.spStore = "Direct";
     }
     if (viper.dom.pathname.indexOf("/buy/confirmation")>-1){
