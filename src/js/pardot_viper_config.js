@@ -82,7 +82,7 @@ function pctFromSP() {
     utag_data.sp_domain_user_id = viper.spCookieParams[1];
     utag_data.sp_session_id = viper.spCookieParams[3];
     utag_data.sp_domain_session_id = utag_data.sp_domain_user_id + "-" + utag_data.sp_session_id;
-}setTimeout(pctFromSP, 500);
+}setTimeout(pctFromSP, 2000);
 
 //Set Page ID and Category
 (function () {
