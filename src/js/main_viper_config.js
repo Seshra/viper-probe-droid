@@ -31,7 +31,7 @@ if (viper.dom.domain.indexOf(carbonite.com)>-1 && (viper.dom.domain.indexOf("dev
 }else if(viper.dom.domain.indexOf(".de")>-1){
     viper.sp_appId = 'main-prod-de';
     viper.sp_platform = 'web';
-    viper.sp_cookieDomain = ".carbonite.com";
+    viper.sp_cookieDomain = ".carbonite.de";
     viper.sp_cookieName = "_holocron_";
     viper.environment = viper.environment || "prod";
 }
