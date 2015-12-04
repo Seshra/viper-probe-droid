@@ -9,26 +9,31 @@ if (viper.dom.domain.indexOf(carbonite.com)>-1 && (viper.dom.domain.indexOf("dev
     viper.sp_platform = 'web';
     viper.sp_cookieDomain = ".carbonite.com";
     viper.sp_cookieName = "_holocron_";
+    viper.environment = viper.environment || "prod";
 }else if (viper.dom.domain.indexOf("dev")>-1 || viper.dom.domain.indexOf("carboniteinc")>-1 || viper.dom.domain.indexOf("carbonitedev")>-1){
     viper.sp_appId = 'tealium-dev';
     viper.sp_platform = 'web';
     viper.sp_cookieDomain = ".carboniteinc.com";
     viper.sp_cookieName = "sp";
+    viper.environment = viper.environment || "dev";
 }else if (viper.url.indexOf("observepoint-test-pages")>-1){
     viper.sp_appId = 'observepoint-tests';
     viper.sp_platform = 'web';
     viper.sp_cookieDomain = ".carboniteinc.com";
     viper.sp_cookieName = "sp";
+    viper.environment = viper.environment || "dev";
 }else if(viper.dom.domain.indexOf("ww2")>-1){
     viper.sp_appId = 'main-prod2015';
     viper.sp_platform = 'web';
     viper.sp_cookieDomain = ".carbonite.com";
     viper.sp_cookieName = "_holocron_";
+    viper.environment = viper.environment || "prod";
 }else if(viper.dom.domain.indexOf(".de")>-1){
     viper.sp_appId = 'main-prod-de';
     viper.sp_platform = 'web';
     viper.sp_cookieDomain = ".carbonite.com";
     viper.sp_cookieName = "_holocron_";
+    viper.environment = viper.environment || "prod";
 }
 
 //Fire Snowplow Tag
@@ -67,15 +72,11 @@ if (viper.dom.url.toLowerCase().indexOf("account.carbonite.com/smb/dashboard") &
     viper.igluEvent("trial_download", "1-0-0", {timeStamp: new Date(),event_points: "400"}, {}, {brand: "Carbonite", lob: "SMB", product: "SMB Trial", product_level: "Trial"});
 }
 
+//Code to check for utag_data object and addit if it does not exist
+var utag_data = utag_data || {};
 
 //Determining Tealium Environment and launching Tealium
 (function () {
-    if (viper.environment){
-    } else if ((!viper.environment) && (viper.dom.domain.indexOf("dev")>-1 || viper.dom.domain.indexOf("carboniteinc")>-1 || viper.dom.domain.indexOf("carbonitedev")>-1)) {
-        viper.environment = "dev";
-    } else {
-        viper.environment = "prod";
-    }
     //Check to see if a viper cookie exists and use its contents if it does
     if (viper.cp.viper) {
         viper.environment = viper.cp.viper;

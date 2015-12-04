@@ -152,6 +152,11 @@ var viper = {
         }
     },
 
+    //To send "true" when run for NewRelic testing
+    nrCheck: function(){
+        return true;
+    },
+
     //DOM Elements
     dom: {
         url: document.URL,
@@ -187,9 +192,6 @@ var viper = {
         viper.metaToObj();
         viper.browser.jquery_enabled = viper.jqueryTest();
         viper.browser.jquery_version = viper.jqueryVersion();
-
-        //Checks to see if utag_data object exists, and if not, sets an empty object.
-        var utag_data = utag_data || {};
 
         //creating the Snowplow script tag and inserting it at the bottom of the body tag
         viper.snowplow(window, document, "script", "//d1qbbgtcslwdbx.cloudfront.net/2.5.3/sp.js", "snowplow");

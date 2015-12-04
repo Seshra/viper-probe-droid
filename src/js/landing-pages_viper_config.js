@@ -58,6 +58,8 @@ if (viper.dom.domain === "dev.pancommunications.com") {
         })();
     }
 
+//Code to check for utag_data object and addit if it does not exist
+var utag_data = utag_data || {};
 
 //Determining Tealium Environment and launching Tealium
 (function () {
