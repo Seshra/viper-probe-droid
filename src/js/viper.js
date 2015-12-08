@@ -123,16 +123,6 @@ var viper = {
         }
     },
 
-    //Declares Hotjar function
-    hotjar: function(h,o,t,j,a,r){
-        h.hj=h.hj||function(){(h.hj.q=h.hj.q||[]).push(arguments);};
-        h._hjSettings={hjid:107335,hjsv:5};
-        a=o.getElementsByTagName('head')[0];
-        r=o.createElement('script');r.async=1;
-        r.src=t+h._hjSettings.hjid+j+h._hjSettings.hjsv;
-        a.appendChild(r);
-    },
-
     //Function to streamline creation of IGLU event (unstructured)
     igluEvent: function(event,eventVer,eventData,userData,productData){
         window.snowplow("trackUnstructEvent", {
@@ -208,11 +198,6 @@ var viper = {
 
         //creating the Snowplow script tag and inserting it at the bottom of the body tag
         viper.snowplow(window, document, "script", "//d1qbbgtcslwdbx.cloudfront.net/2.5.3/sp.js", "snowplow");
-
-        //Launching the Hotjar script
-        if (viper.dom.domain.toLowerCase().indexOf("carbonite.com")>-1 || viper.dom.domain.toLowerCase().indexOf("carbonite.de") >-1) {
-            viper.hotjar(window, document, '//static.hotjar.com/c/hotjar-', '.js?sv=');
-        }
 
         //Adding div tag
         var div = document.createElement("div");
