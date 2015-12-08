@@ -1,4 +1,3 @@
-viper.main_version = "v0.03 : Fri Nov 13 2015 14:53:37 GMT-0800 (PST)";
 /*
  This file contains all of the site-specific code for main pages.  This information may contain conversion events
  */
@@ -72,8 +71,6 @@ if (viper.dom.url.toLowerCase().indexOf("account.carbonite.com/smb/dashboard") &
     viper.igluEvent("trial_download", "1-0-0", {timeStamp: new Date(),event_points: "400"}, {}, {brand: "Carbonite", lob: "SMB", product: "SMB Trial", product_level: "Trial"});
 }
 
-//Code to check for utag_data object and addit if it does not exist
-var utag_data = utag_data || {};
 
 //Determining Tealium Environment and launching Tealium
 (function () {

@@ -7,6 +7,9 @@ var size = require('gulp-size');
 var karma = require('karma');
 var server = require('karma').Server;
 var gutil = require('gulp-util');
+var header = require('gulp-header');
+
+var d = new Date();
 
 //     sass = require('gulp-ruby-sass'),
 //     autoprefixer = require('gulp-autoprefixer'),
@@ -20,7 +23,7 @@ var gutil = require('gulp-util');
 //     gutil = require('gulp-util'),
 //     del = require('del')
 
-gulp.task('default', ['lint','test','clean','build','travis']);
+gulp.task('default', ['lint','test','clean','build']);
 
 var testFiles = [
     'src/js/viper.js',
@@ -57,11 +60,12 @@ gulp.task('clean', ['test'], function () {
 
 gulp.task('build', ['lint','test', 'clean'], function () {
     return gulp.src('./src/js/*.js')
-        .pipe(uglify().on('error', gutil.log))
+        .pipe(uglify({compress: {unused: false}}).on('error', gutil.log))
+        .pipe(header("/* Generated on: " + d + " */"))
         .pipe(size())
         .pipe(gulp.dest('./dist'));
 });
 
-gulp.task('travis', ['build'], function() {
+//gulp.task('travis', ['build'], function() {
 
-});
+//});
