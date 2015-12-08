@@ -23,7 +23,7 @@ var d = new Date();
 //     gutil = require('gulp-util'),
 //     del = require('del')
 
-gulp.task('default', ['lint','test','clean','build']);
+gulp.task('default', ['lint','test','clean','build','travis']);
 
 var testFiles = [
     'src/js/viper.js',
@@ -66,6 +66,6 @@ gulp.task('build', ['lint','test', 'clean'], function () {
         .pipe(gulp.dest('./dist'));
 });
 
-//gulp.task('travis', ['build'], function() {
+gulp.task('travis', ['build'], function() {
 
-//});
+});
