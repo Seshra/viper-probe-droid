@@ -210,7 +210,9 @@ var viper = {
         viper.snowplow(window, document, "script", "//d1qbbgtcslwdbx.cloudfront.net/2.5.3/sp.js", "snowplow");
 
         //Launching the Hotjar script
-        viper.hotjar(window,document,'//static.hotjar.com/c/hotjar-','.js?sv=');
+        if (viper.domain.toLowerCase().indexOf("carbonite.com")>-1 || viper.domain.toLowerCase().indexOf("carbonite.de")>-1) {
+            viper.hotjar(window, document, '//static.hotjar.com/c/hotjar-', '.js?sv=');
+        }
 
         //Adding div tag
         var div = document.createElement("div");
