@@ -4,6 +4,12 @@ var utag_data = utag_data || {};
 
 //Viper Specific Code
 var viper = {
+
+    //Timestamp
+    ts: function(){
+        viper.timeStamp = viperTimeStamp;
+    },
+
     //Function used to set cookies
     setCookie: function (cname, cvalue, days) {
         var d = new Date();
@@ -190,6 +196,7 @@ var viper = {
 
         viper.application = app || viper.application;
 
+        viper.ts();
         viper.qpToObj();
         viper.cookieToObj();
         viper.metaToObj();
