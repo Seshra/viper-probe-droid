@@ -61,7 +61,7 @@ gulp.task('clean', ['test'], function () {
 gulp.task('build', ['lint','test', 'clean'], function () {
     return gulp.src('./src/js/*.js')
         .pipe(uglify({compress: {unused: false}}).on('error', gutil.log))
-        .pipe(header("/* Generated on: " + d + " */"))
+        .pipe(header("var viperTimeStamp = '" + d +"';"))
         .pipe(size())
         .pipe(gulp.dest('./dist'));
 });
