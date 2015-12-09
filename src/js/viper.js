@@ -7,7 +7,7 @@ var viper = {
 
     //Timestamp
     ts: function(){
-        viper.timeStamp = viperTimeStamp;
+        viper.version = viperTimeStamp;
     },
 
     //Function used to set cookies
