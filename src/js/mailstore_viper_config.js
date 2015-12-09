@@ -1,5 +1,3 @@
-viper.mailstore_version = "v0.02 : Thu Nov 05 2015 19:08:03 GMT-0800 (PST)";
-
 /*mailstore_viper_config.js*/
 /*v0.01*/
 
@@ -52,9 +50,6 @@ if (viper.dom.pathname.indexOf("/de/mailstore-server-thankyou-inbox.aspx")>-1) {
 if (viper.dom.pathname.indexOf("/en/mailstore-server-thankyou-inbox.aspx")>-1) {
     viper.igluEvent("resource_download", "1-0-0", {timeStamp: new Date()}, {locale: "English"}, {brand: "Mailstore", lob: "SMB", product: "Mailstore", product_level: "Server"});
 }
-
-//Code to check for utag_data object and addit if it does not exist
-var utag_data = utag_data || {};
 
 //Determining Tealium Environment and launching Tealium
 (function () {

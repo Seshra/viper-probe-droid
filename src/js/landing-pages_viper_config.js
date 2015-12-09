@@ -1,4 +1,3 @@
-viper.landingPage_version = "v0.02 : Thu Nov 05 2015 19:08:03 GMT-0800 (PST)";
 /*
  This file contains all of the site-specific code for landing-pages.  This information may contain conversion events,
  */
@@ -58,8 +57,6 @@ if (viper.dom.domain === "dev.pancommunications.com") {
         })();
     }
 
-//Code to check for utag_data object and addit if it does not exist
-var utag_data = utag_data || {};
 
 //Determining Tealium Environment and launching Tealium
 (function () {

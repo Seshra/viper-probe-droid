@@ -1,6 +1,9 @@
-var viper = {
-    version: "v0.04 : Mon Nov 09 2015 10:00:36 GMT-0800 (PST)",
+//Non-Viper Specific Code
+var utag_data = utag_data || {};
 
+
+//Viper Specific Code
+var viper = {
     //Function used to set cookies
     setCookie: function (cname, cvalue, days) {
         var d = new Date();

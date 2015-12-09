@@ -27,8 +27,6 @@ var bl = {
 };
 window.snowplow('enableFormTracking', bl);
 
-//Code to check for utag_data object and addit if it does not exist
-var utag_data = utag_data || {};
 
 //code to extract catid from href query string an place in a cookie
 if (viper.qp.catid) {
