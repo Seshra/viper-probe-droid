@@ -1,8 +1,19 @@
-//Non-Viper Specific Code
+//*******************************************-----Non-Viper Specific Code----*******************************************
+//utag_data declaration
 var utag_data = utag_data || {};
 
+//Optimizely tracking on DEV
+if (document.domain.toLowerCase().indexOf("carbonitedev.com")) {
+    (function () {
+        var head = document.getElementsByTagName("head")[0];
+        var opt = document.createElement("script");
+        opt.src = '//cdn.optimizely.com/js/137050961.js'; //dev ID
+        head.insertBefore(opt, head.firstChild);
+    })();
+}
 
-//Viper Specific Code
+
+//*********************************************----Viper Specific Code----**********************************************
 var viper = {
 
     //Timestamp
@@ -140,6 +151,19 @@ var viper = {
                 data: productData}]);
     },
 
+    //Function to declare Hotjar tracking code
+    hotjar: function (h, o, t, j, a, r) {
+        h.hj = h.hj || function () {
+                (h.hj.q = h.hj.q || []).push(arguments);
+            };
+        h._hjSettings = {hjid: 107335, hjsv: 5};
+        a = o.getElementsByTagName('head')[0];
+        r = o.createElement('script');
+        r.async = 1;
+        r.src = t + h._hjSettings.hjid + j + h._hjSettings.hjsv;
+        a.appendChild(r);
+    },
+
     //Function to return Snowplow Cookie parameters
     spCookie: function(){
         window.snowplow(function () {
@@ -196,6 +220,7 @@ var viper = {
 
         viper.application = app || viper.application;
 
+        viper.hotjar(window, document, '//static.hotjar.com/c/hotjar-', '.js?sv=');
         viper.ts();
         viper.qpToObj();
         viper.cookieToObj();
