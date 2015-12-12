@@ -16,12 +16,14 @@ switch(optDomain) {
         optID = "137050961";
         break
 }
-(function () {
-    var head = document.getElementsByTagName("head")[0];
-    var opt = document.createElement("script");
-    opt.src = '//cdn.optimizely.com/js/'+optID+'.js';
-    head.insertBefore(opt, head.firstChild);
-})();
+if (optID) {
+    (function () {
+        var head = document.getElementsByTagName("head")[0];
+        var opt = document.createElement("script");
+        opt.src = '//cdn.optimizely.com/js/' + optID + '.js';
+        head.insertBefore(opt, head.firstChild);
+    })();
+}
 
 
 
