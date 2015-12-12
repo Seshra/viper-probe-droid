@@ -2,7 +2,7 @@
 //utag_data declaration
 var utag_data = utag_data || {};
 
-//Optimizely tracking on DEV
+//Optimizely tracking on STAGING
 if (document.domain.toLowerCase().indexOf("carbonitestage.com")>-1) {
     (function () {
         var head = document.getElementsByTagName("head")[0];
