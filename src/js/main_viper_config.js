@@ -3,13 +3,14 @@
  */
 
 //Starting the Snowplow tracking script
-if (viper.dom.domain.indexOf(carbonite.com)>-1 && (viper.dom.domain.indexOf("dev")===-1 || viper.dom.domain.indexOf("carboniteinc")===-1)){
+
+if (viper.dom.domain.indexOf("carbonite.com")>-1 && viper.dom.domain.indexOf("dev")===-1)){
     viper.sp_appId = 'main-prod';
     viper.sp_platform = 'web';
     viper.sp_cookieDomain = ".carbonite.com";
     viper.sp_cookieName = "_holocron_";
     viper.environment = viper.environment || "prod";
-}else if (viper.dom.domain.indexOf("dev")>-1 || viper.dom.domain.indexOf("carboniteinc")>-1 || viper.dom.domain.indexOf("carbonitedev")>-1){
+}else if (viper.dom.domain.indexOf("dev")>-1 || viper.dom.domain.indexOf("carboniteinc")>-1 || viper.dom.domain.indexOf("carbonitedev")>-1 || viper.dom.domain.indexOf("carbonitestage")>-1){
     viper.sp_appId = 'tealium-dev';
     viper.sp_platform = 'web';
     viper.sp_cookieDomain = ".carboniteinc.com";
