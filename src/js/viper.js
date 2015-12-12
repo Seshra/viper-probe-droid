@@ -2,15 +2,27 @@
 //utag_data declaration
 var utag_data = utag_data || {};
 
-//Optimizely tracking on STAGING
-if (document.domain.toLowerCase().indexOf("carbonitestage.com")>-1) {
-    (function () {
-        var head = document.getElementsByTagName("head")[0];
-        var opt = document.createElement("script");
-        opt.src = '//cdn.optimizely.com/js/538320036.js'; //stage ID
-        head.insertBefore(opt, head.firstChild);
-    })();
+//Optimizely tracking
+var optDomain = document.domain.toLowerCase(),
+    optID="";
+switch(optDomain) {
+    case "www.carbonite.com":
+        optID = "148582399";
+        break
+    case "www.carbonitestage.com":
+        optID = "538320036";
+        break
+    case "www.carbonitedev.com":
+        optID = "137050961";
+        break
 }
+(function () {
+    var head = document.getElementsByTagName("head")[0];
+    var opt = document.createElement("script");
+    opt.src = '//cdn.optimizely.com/js/'+optID+'.js';
+    head.insertBefore(opt, head.firstChild);
+})();
+
 
 
 //*********************************************----Viper Specific Code----**********************************************
