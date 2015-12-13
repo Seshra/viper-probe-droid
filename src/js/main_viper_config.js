@@ -4,7 +4,7 @@
 
 //Starting the Snowplow tracking script
 
-if (viper.dom.domain.indexOf("carbonite.com")>-1 && viper.dom.domain.indexOf("dev")===-1)){
+if (viper.dom.domain.indexOf("carbonite.com")>-1 && viper.dom.domain.indexOf("dev")===-1){
     viper.sp_appId = 'main-prod';
     viper.sp_platform = 'web';
     viper.sp_cookieDomain = ".carbonite.com";
