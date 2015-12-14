@@ -47,7 +47,7 @@ if (viper.dom.domain.indexOf("carbonite.com")>-1 && viper.dom.domain.indexOf("de
     window.snowplow('enableActivityTracking', 30, 10);
     window.snowplow('enableLinkClickTracking');
     window.snowplow('trackPageView', false, null);
-
+    utag_data.snowplow_tracked = true;
 /*
     var bl = {
         forms: {
