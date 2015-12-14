@@ -4,7 +4,7 @@
 
 //Starting the Snowplow tracking script
 
-if (viper.dom.domain.indexOf("carbonite.com")>-1 && viper.dom.domain.indexOf("dev")===-1)){
+if (viper.dom.domain.indexOf("carbonite.com")>-1 && viper.dom.domain.indexOf("dev")===-1){
     viper.sp_appId = 'main-prod';
     viper.sp_platform = 'web';
     viper.sp_cookieDomain = ".carbonite.com";
@@ -70,6 +70,31 @@ if (viper.dom.pathname.toLowerCase().indexOf("/install/download")>-1){
 //Trial Download - SMB
 if (viper.dom.url.toLowerCase().indexOf("account.carbonite.com/smb/dashboard") && viper.qp.newacct === 1){
     viper.igluEvent("trial_download", "1-0-0", {timeStamp: new Date(),event_points: "400"}, {}, {brand: "Carbonite", lob: "SMB", product: "SMB Trial", product_level: "Trial"});
+}
+//Contact An Expert Lead Gen
+if (viper.dom.pathname.toLowerCase().indexOf("/en/cloud-backup/business-solutions/contact-an-expert/thank-you/")>-1){
+    utag_data.viper_conversion = "c3"; utag_data.c3_type = "35"; utag_data.c3_account_id = "lead-gen: contact-an-expert";
+    viper.igluEvent("lead_generation","1-0-0",{"lead_type": utag_data.c3_account_id,"timeStamp": new Date()},{},{});
+}
+//Request A Demo Lead Gen
+if (viper.dom.pathname.toLowerCase().indexOf("/en/cloud-backup/business-solutions/request-a-demo/thank-you/")>-1){
+    utag_data.viper_conversion = "c3"; utag_data.c3_type = "35"; utag_data.c3_account_id = "lead-gen: request-a-demo";
+    viper.igluEvent("lead_generation","1-0-0",{"lead_type": utag_data.c3_account_id,"timeStamp": new Date()},{},{});
+}
+//Request A Quote Lead Gen
+if (viper.dom.pathname.toLowerCase().indexOf("/en/cloud-backup/business-solutions/request-a-quote/thank-you/")>-1){
+    utag_data.viper_conversion = "c3"; utag_data.c3_type = "35"; utag_data.c3_account_id = "lead-gen: request-a-quote";
+    viper.igluEvent("lead_generation","1-0-0",{"lead_type": utag_data.c3_account_id,"timeStamp": new Date()},{},{});
+}
+//Become A Partner Lead Gen
+if (viper.dom.pathname.toLowerCase().indexOf("/en/partners/thank-you/")>-1 && viper.dom.referrer.toLowerCase().indexOf("/en/partners/become-a-partner/")>-1){
+    utag_data.viper_conversion = "c3"; utag_data.c3_type = "35"; utag_data.c3_account_id = "lead-gen: become-a-partner";
+    viper.igluEvent("lead_generation","1-0-0",{"lead_type": utag_data.c3_account_id,"timeStamp": new Date()},{},{});
+}
+//Contact Channel AM Lead Gen
+if (viper.dom.pathname.toLowerCase().indexOf("/en/partners/thank-you/")>-1 && viper.dom.referrer.toLowerCase().indexOf("/en/contact-channel-account-management-team/")>-1){
+    utag_data.viper_conversion = "c3"; utag_data.c3_type = "35"; utag_data.c3_account_id = "lead-gen: contact-channel-am-team";
+    viper.igluEvent("lead_generation","1-0-0",{"lead_type": utag_data.c3_account_id,"timeStamp": new Date()},{},{});
 }
 
 

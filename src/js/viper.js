@@ -9,13 +9,13 @@ var utag_data = utag_data || {};
     switch(optDomain) {
         case "www.carbonite.com":
             optID = "148582399";
-            break
+            break;
         case "www.carbonitestage.com":
             optID = "538320036";
-            break
+            break;
         case "www.carbonitedev.com":
             optID = "137050961";
-            break
+            break;
     }
     if (optID) {
         var head = document.getElementsByTagName("head")[0];
