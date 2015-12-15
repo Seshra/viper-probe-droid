@@ -116,6 +116,8 @@ if (viper.dom.pathname.toLowerCase().indexOf("/en/partners/thank-you/")>-1 && vi
 }());
 
 
+//Disabling Commerce code since Viper is not in template used for transactions
+/*
 //Process and send transaction data to Snowplow
 if (viper.dom.pathname.toLowerCase("/buy/ordercomplete").indexOf("/buy/completeorder")>-1 || viper.dom.pathname.toLowerCase("/buy/confirmation").indexOf()>-1){
     if (viper.dom.pathname.indexOf("/buy/ordercomplete")>-1 || viper.dom.pathname.indexOf("/buy/completeorder")>-1){
@@ -180,3 +182,4 @@ if (viper.dom.pathname.toLowerCase("/buy/ordercomplete").indexOf("/buy/completeo
         window.snowplow('trackTrans');
     }
 }
+*/
