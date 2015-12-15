@@ -2,30 +2,6 @@
 //utag_data declaration
 var utag_data = utag_data || {};
 
-//Optimizely tracking
-(function () {
-    var optDomain = document.domain.toLowerCase(),
-        optID="";
-    switch(optDomain) {
-        case "www.carbonite.com":
-            optID = "148582399";
-            break;
-        case "www.carbonitestage.com":
-            optID = "538320036";
-            break;
-        case "www.carbonitedev.com":
-            optID = "137050961";
-            break;
-    }
-    if (optID) {
-        var head = document.getElementsByTagName("head")[0];
-        var opt = document.createElement("script");
-        opt.src = '//cdn.optimizely.com/js/' + optID + '.js';
-        head.insertBefore(opt, head.firstChild);
-    }
-})();
-
-
 //*********************************************----Viper Specific Code----**********************************************
 var viper = {
 
