@@ -209,7 +209,10 @@ var viper = {
 
         viper.application = app || viper.application;
 
-        viper.hotjar(window, document, '//static.hotjar.com/c/hotjar-', '.js?sv=');
+        if (document.domain === "www.carbonite.com") {
+            viper.hotjar(window, document, '//static.hotjar.com/c/hotjar-', '.js?sv=');
+        }
+
         viper.ts();
         viper.qpToObj();
         viper.cookieToObj();
