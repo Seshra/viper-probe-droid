@@ -65,7 +65,8 @@ if (viper.dom.domain.indexOf("carbonite.com")>-1 && viper.dom.domain.indexOf("de
 //Snowplow Conversions
 //Trial Download - Personal
 if (viper.dom.pathname.toLowerCase().indexOf("/install/download")>-1){
-    viper.igluEvent("trial_download", "1-0-0", {timeStamp: new Date(),event_points: "80"}, {}, {brand: "Carbonite", lob: "Personal", product: "Personal Trial", product_level: "Trial"});
+    window.snowplow('trackStructEvent', 'Engagement', 'Trial Conversion', 'Personal', 'Score', '80','', '', ''));
+    //viper.igluEvent("trial_download", "1-0-0", {timeStamp: new Date(),event_points: "80"}, {}, {brand: "Carbonite", lob: "Personal", product: "Personal Trial", product_level: "Trial"});
 }
 //Trial Download - SMB
 if (viper.dom.url.toLowerCase().indexOf("account.carbonite.com/smb/dashboard") && viper.qp.newacct === 1){
