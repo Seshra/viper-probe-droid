@@ -79,5 +79,5 @@ if (viper.dom.domain === "dev.pancommunications.com") {
         viper.setCookie("viper", viper.environment);
     }
     //Requeue this task at the end of the execution queue to allow page to finish loading.
-    setTimeout(viper.tealium(), 500);
+    setTimeout(viper.tealium, 500);
 }());
