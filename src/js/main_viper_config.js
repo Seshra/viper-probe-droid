@@ -114,7 +114,7 @@ if (viper.dom.pathname.toLowerCase().indexOf("/en/partners/thank-you/")>-1 && vi
         viper.setCookie("viper", viper.environment);
     }
     //Requeue this task at the end of the execution queue to allow page to finish loading.
-    setTimeout(viper.tealium(), 500);
+    setTimeout(viper.tealium, 500);
 }());
 
 
