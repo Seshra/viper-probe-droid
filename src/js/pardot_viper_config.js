@@ -117,5 +117,5 @@ utag_data.sp_domain_session_id = utag_data.sp_domain_user_id + "-" + utag_data.s
     if (viper.cp.viper !== viper.environment) {
         viper.setCookie("viper", viper.environment);
     }
-    viper.tealium();
+    setTimeout(viper.tealium(), 500);
 }());

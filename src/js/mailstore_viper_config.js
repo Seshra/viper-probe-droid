@@ -71,5 +71,5 @@ if (viper.dom.pathname.indexOf("/en/mailstore-server-thankyou-inbox.aspx")>-1) {
     if (viper.cp.viper !== viper.environment) {
         viper.setCookie("viper", viper.environment);
     }
-    viper.tealium();
+    setTimeout(viper.tealium(), 500);
 }());

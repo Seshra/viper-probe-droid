@@ -78,5 +78,5 @@ if (viper.dom.domain === "dev.pancommunications.com") {
     if (viper.cp.viper !== viper.environment) {
         viper.setCookie("viper", viper.environment);
     }
-    viper.tealium();
+    setTimeout(viper.tealium(), 500);
 }());

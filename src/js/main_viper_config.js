@@ -113,7 +113,7 @@ if (viper.dom.pathname.toLowerCase().indexOf("/en/partners/thank-you/")>-1 && vi
     if (viper.cp.viper !== viper.environment) {
         viper.setCookie("viper", viper.environment);
     }
-    viper.tealium();
+    setTimeout(viper.tealium(), 500);
 }());
 
 
