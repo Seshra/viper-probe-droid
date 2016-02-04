@@ -96,7 +96,19 @@ The determination of the environment (dev or prod) is done automatically in Vipe
 
 In order for the Carbonite Analytics application to properly track links on your web pages, it is recommended that a unique **"id"** attribute be added to each link.  This will allow the application to determine which links were clicked on a particular page.
 
+##Deployment
+This project used to be deployed via travis automatically upon merge.  Now we will manually deploy this old version until the new v2 viper is released.
 
+To deploy, you will need to build the project with:
+
+  ```gulp build```
+
+Then you will need to deploy the built js file to s3.
+
+* Use the AWS cli to fetch a set of temporary BAP credentials with mfa.  [This script](https://github.com/asagage/aws-mfa-script) is recommended. 
+* Copy the file to s3
+  ```aws s3 sync ./dist s3://viper-probe-droid-prod/```
+  
 # LICENSE
 Copyright (c) 2015, Robert G. Johnson Jr. @Oakensoul, Apache Version 2.0
 Copyright (c) 2015, Andrew C. Rose @RongWay, Apache Version 2.0
