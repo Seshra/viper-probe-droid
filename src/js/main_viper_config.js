@@ -101,16 +101,15 @@ if (viper.dom.pathname.toLowerCase().indexOf("/en/partners/thank-you/")>-1 && vi
 
 //code to inject PCT information into Hidden Form Field
 (function(){
-    var p=location.pathname;
+    var p = location.pathname;
     viper.spCookie();
 
-    if (viper.dom.domain.toLowerCase().indexOf("carbonitedev.com")>-1 &&
-        (p === "/en/cloud-backup/business-solutions/contact-an-expert/"
+    if (p === "/en/cloud-backup/business-solutions/contact-an-expert/"
         || p === "/en/cloud-backup/business-solutions/request-a-demo/"
         || p === "/en/cloud-backup/business-solutions/request-a-quote/"
         || p === "/en/contact-channel-account-management-team/"
         || p === "/en/partners/become-a-partner/"
-        || p === "/en/partners/find-a-partner/")){
+        || p === "/en/partners/find-a-partner/") {
         if (viper.cp.viper_utm_medium && document.getElementsByName("PCT_Medium__c")){
             document.getElementsByName("PCT_Medium__c").value = viper.cp.viper_utm_medium;
         }
