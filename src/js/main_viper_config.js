@@ -101,7 +101,7 @@ if (viper.dom.pathname.toLowerCase().indexOf("/en/partners/thank-you/")>-1 && vi
 
 //code to inject PCT information into Hidden Form Field
 viper.spCookie();
-
+viper.spPCTSetCounter = 0;
 viper.spPCTSet = function(){
     if (typeof viper.spCookieParams !== "undefined"){
         if (document.getElementsByName("PCT_Session_ID__c")){
@@ -111,10 +111,13 @@ viper.spPCTSet = function(){
             document.getElementsByName("PCT_User_ID__c").value = viper.spCookieParams[1];
         }
     }
-    else{
-        setTimeout(viper.spPCTSet,500);
+    else {
+        if (viper.spPCTSetCounter < 20) {
+            setTimeout(viper.spPCTSet, 500);
+            viper.spPCTSetCounter++;
+        }
     }
-}
+};
 
 if (viper.dom.pathname === "/en/cloud-backup/business-solutions/contact-an-expert/"
     || viper.dom.pathname === "/en/cloud-backup/business-solutions/request-a-demo/"
