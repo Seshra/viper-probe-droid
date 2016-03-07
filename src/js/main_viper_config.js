@@ -112,7 +112,7 @@ viper.spPCTSet = function(){
         }
     }
     else{
-        window.setTimeout(viper.spPCTSet,500);
+        setTimeout(viper.spPCTSet,500);
     }
 }
 
