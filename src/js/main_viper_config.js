@@ -102,6 +102,20 @@ if (viper.dom.pathname.toLowerCase().indexOf("/en/partners/thank-you/")>-1 && vi
 //code to inject PCT information into Hidden Form Field
 viper.spCookie();
 
+viper.spPCTSet = function(){
+    if (typeof viper.spCookieParams !== "undefined"){
+        if (document.getElementsByName("PCT_Session_ID__c")){
+            document.getElementsByName("PCT_Session_ID__c").value = viper.spCookieParams[3];
+        }
+        if (document.getElementsByName("PCT_User_ID__c")){
+            document.getElementsByName("PCT_User_ID__c").value = viper.spCookieParams[1];
+        }
+    }
+    else{
+        window.setTimeout(viper.spPCTSet,500);
+    }
+}
+
 if (viper.dom.pathname === "/en/cloud-backup/business-solutions/contact-an-expert/"
     || viper.dom.pathname === "/en/cloud-backup/business-solutions/request-a-demo/"
     || viper.dom.pathname === "/en/cloud-backup/business-solutions/request-a-quote/"
@@ -117,12 +131,7 @@ if (viper.dom.pathname === "/en/cloud-backup/business-solutions/contact-an-exper
     if (viper.cp.viper_utm_source && document.getElementsByName("PCT_Source__c")){
         document.getElementsByName("PCT_Source__c").value = viper.cp.viper_utm_source;
     }
-    if (viper.spCookieParams && document.getElementsByName("PCT_Session_ID__c")){
-        document.getElementsByName("PCT_Session_ID__c").value = viper.spCookieParams[3];
-    }
-    if (viper.spCookieParams && document.getElementsByName("PCT_User_ID__c")){
-        document.getElementsByName("PCT_User_ID__c").value = viper.spCookieParams[1];
-    }
+    viper.spPCTSet();
 }
 
 
