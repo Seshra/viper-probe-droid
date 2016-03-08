@@ -1,12 +1,12 @@
 ###main_viper_config.js Technical Documentation###
-####v0.01####
+####v0.02####
 <br>
 
 The purpose of this document is to provide an overall explanation of the following Javascript code and provide an explanation of each function and code block.
 <br><br>
 
 **Overview:**
-This is version 0.01 of the Main specific Viper Config JS helper file.  This file is used to contain and run all of the Main site-specific code, such as lookup tables, page load code, event functions, etc... 
+This is version 0.02 of the Main specific Viper Config JS helper file.  This file is used to contain and run all of the Main site-specific code, such as lookup tables, page load code, event functions, etc... 
 
 
 This first section is to set the specific parameters for Snowplow on different pages/sites, and then launch the Snowplow Analytics tracker.  This also determines the environment for Tealium (Dev, QA or PROD).
@@ -71,7 +71,9 @@ if (viper.dom.domain.indexOf("carbonite.com")>-1 && viper.dom.domain.indexOf("de
     window.snowplow('enableFormTracking', bl);
 ```
 
-This next section contains the Snowplow Conversion events
+This next section contains the Snowplow Conversion events.  This code is used in conjunction with the `viper.igluEvent()` 
+function to send event information to snowplow.  In addition to the snowplow events, we are also setting utag_data values 
+so that Tealium can fire C3 conversion events, specifically for Lead Generation.
 
 ```
 //Trial Download - Personal
@@ -117,7 +119,7 @@ and two of those data points are used for populating the PCT Session and PCT Use
 
 a. Because the Snowplow data is generally populated after the page load, the following viper.spPCTSet(); function is used to 
 check for the Snowplow data every 1/2 second, up to 10 seconds, and populate the form fields once the Snowplow data is populated.  
-This function is fired down elow in the code block wrapped by the "if" statements.
+This function is fired down below in the code block wrapped by the "if" statements.
 
 ```
 //code to inject PCT information into Hidden Form Field
