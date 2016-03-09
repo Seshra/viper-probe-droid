@@ -112,13 +112,13 @@ if (viper.dom.pathname.toLowerCase().indexOf("/en/partners/thank-you/")>-1 && vi
 
 ```
 
-This third section is used to set PCT and Snowplow data on hidden elements on lead generation forms.  The basic PCT fields 
+This third section is used to set Snowplow data in cookies so that Marketo is able to retrieve the data.  The basic PCT fields 
 (PCT Medium, PCT Placement and PCT Source) are automatically captured on the PCT landing page and store in a Viper cookie.
-That cookie data is then retrieved and used to populate the PCT form fields.  For Snowplow data, a function is run (viper.spCookie();)
-and two of those data points are used for populating the PCT Session and PCT User elements in the forms.
+That cookie data is then retrieved using Marketo.  For Snowplow data, a function is run (viper.spCookie();), which returns an array.  
+Two of the elements from that array are extracted and used for populating the Snowplow cookies.
 
 a. Because the Snowplow data is generally populated after the page load, the following viper.spPCTSet(); function is used to 
-check for the Snowplow data every 1/2 second, up to 10 seconds, and populate the form fields once the Snowplow data is populated.  
+check for the Snowplow data every 1/2 second, up to 10 seconds, and populate the cookies once the Snowplow data is populated.  
 This function is fired down below in the code block wrapped by the "if" statements.
 
 ```
@@ -126,15 +126,10 @@ This function is fired down below in the code block wrapped by the "if" statemen
 viper.spCookie();
 viper.spPCTSetCounter = 0;
 viper.spPCTSet = function(){
-    if (typeof viper.spCookieParams !== "undefined"){
-        if (document.getElementsByName("PCT_Session_ID__c")){
-            document.getElementsByName("PCT_Session_ID__c").value = viper.spCookieParams[3];
-        }
-        if (document.getElementsByName("PCT_User_ID__c")){
-            document.getElementsByName("PCT_User_ID__c").value = viper.spCookieParams[1];
-        }
-    }
-    else {
+    if (typeof viper.spCookieParams !== "undefined") {
+        viper.setCookie('viper_sp_userId', viper.spCookieParams[1]);
+        viper.setCookie('viper_sp_sessionId', viper.spCookieParams[3]);
+    } else {
         if (viper.spPCTSetCounter < 20) {
             setTimeout(viper.spPCTSet, 500);
             viper.spPCTSetCounter++;
@@ -143,8 +138,8 @@ viper.spPCTSet = function(){
 };
 ```
 
-b. This next section is the standard PCT data points populated in the form elements.  This is where the if statement is 
-located that only runs the code on specific form pages.  This code block also starts the viper.spPCTSet() function.
+b. This next section is where the "if" statement is located that only runs the code on specific form pages.  This code 
+starts the viper.spPCTSet() function to ultimately write the Snowplow cookies.
 
 ```
 if (viper.dom.pathname === "/en/cloud-backup/business-solutions/contact-an-expert/"
@@ -153,15 +148,6 @@ if (viper.dom.pathname === "/en/cloud-backup/business-solutions/contact-an-exper
     || viper.dom.pathname === "/en/contact-channel-account-management-team/"
     || viper.dom.pathname === "/en/partners/become-a-partner/"
     || viper.dom.pathname === "/en/partners/find-a-partner/") {
-    if (viper.cp.viper_utm_medium && document.getElementsByName("PCT_Medium__c")){
-        document.getElementsByName("PCT_Medium__c").value = viper.cp.viper_utm_medium;
-    }
-    if (viper.cp.viper_utm_content && document.getElementsByName("PCT_Placement__c")){
-        document.getElementsByName("PCT_Placement__c").value = viper.cp.viper_utm_content;
-    }
-    if (viper.cp.viper_utm_source && document.getElementsByName("PCT_Source__c")){
-        document.getElementsByName("PCT_Source__c").value = viper.cp.viper_utm_source;
-    }
     viper.spPCTSet();
 }
 ```
