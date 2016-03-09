@@ -142,12 +142,13 @@ b. This next section is where the "if" statement is located that only runs the c
 starts the viper.spPCTSet() function to ultimately write the Snowplow cookies.
 
 ```
-if (viper.dom.pathname === "/en/cloud-backup/business-solutions/contact-an-expert/"
-    || viper.dom.pathname === "/en/cloud-backup/business-solutions/request-a-demo/"
-    || viper.dom.pathname === "/en/cloud-backup/business-solutions/request-a-quote/"
-    || viper.dom.pathname === "/en/contact-channel-account-management-team/"
-    || viper.dom.pathname === "/en/partners/become-a-partner/"
-    || viper.dom.pathname === "/en/partners/find-a-partner/") {
+if ((viper.dom.pathname.indexOf("/thank-you") == -1)
+    && (viper.dom.pathname.indexOf("/en/cloud-backup/business-solutions/contact-an-expert") > -1
+    || viper.dom.pathname.indexOf("/en/cloud-backup/business-solutions/request-a-demo") > -1
+    || viper.dom.pathname.indexOf("/en/cloud-backup/business-solutions/request-a-quote") > -1
+    || viper.dom.pathname.indexOf("/en/contact-channel-account-management-team") > -1
+    || viper.dom.pathname.indexOf("/en/partners/become-a-partner") > -1
+    || viper.dom.pathname.indexOf("/en/partners/find-a-partner") > -1)) {
     viper.spPCTSet();
 }
 ```
