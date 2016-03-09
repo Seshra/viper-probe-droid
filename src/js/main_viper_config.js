@@ -103,15 +103,10 @@ if (viper.dom.pathname.toLowerCase().indexOf("/en/partners/thank-you/")>-1 && vi
 viper.spCookie();
 viper.spPCTSetCounter = 0;
 viper.spPCTSet = function(){
-    if (typeof viper.spCookieParams !== "undefined"){
-        if (document.getElementsByName("PCT_Session_ID__c")){
-            document.getElementsByName("PCT_Session_ID__c").value = viper.spCookieParams[3];
-        }
-        if (document.getElementsByName("PCT_User_ID__c")){
-            document.getElementsByName("PCT_User_ID__c").value = viper.spCookieParams[1];
-        }
-    }
-    else {
+    if (typeof viper.spCookieParams !== "undefined") {
+        viper.setCookie('viper_sp_userId', viper.spCookieParams[1]);
+        viper.setCookie('viper_sp_sessionId', viper.spCookieParams[3]);
+    } else {
         if (viper.spPCTSetCounter < 20) {
             setTimeout(viper.spPCTSet, 500);
             viper.spPCTSetCounter++;
@@ -125,15 +120,7 @@ if (viper.dom.pathname === "/en/cloud-backup/business-solutions/contact-an-exper
     || viper.dom.pathname === "/en/contact-channel-account-management-team/"
     || viper.dom.pathname === "/en/partners/become-a-partner/"
     || viper.dom.pathname === "/en/partners/find-a-partner/") {
-    if (viper.cp.viper_utm_medium && document.getElementsByName("PCT_Medium__c")){
-        document.getElementsByName("PCT_Medium__c").value = viper.cp.viper_utm_medium;
-    }
-    if (viper.cp.viper_utm_content && document.getElementsByName("PCT_Placement__c")){
-        document.getElementsByName("PCT_Placement__c").value = viper.cp.viper_utm_content;
-    }
-    if (viper.cp.viper_utm_source && document.getElementsByName("PCT_Source__c")){
-        document.getElementsByName("PCT_Source__c").value = viper.cp.viper_utm_source;
-    }
+
     viper.spPCTSet();
 }
 
