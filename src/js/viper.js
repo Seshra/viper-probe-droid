@@ -15,7 +15,7 @@ var viper = {
         var d = new Date();
         d.setTime(d.getTime() + (days * 86400000));
         var expires = "expires=" + d.toUTCString();
-        document.cookie = cname + "=" + cvalue + "; " + expires;
+        document.cookie = cname + "=" + cvalue + "; " + expires + ";" + "path=/;"
     },
 
     //used to compare variable values to white lists
