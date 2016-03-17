@@ -15,7 +15,7 @@ var viper = {
         var d = new Date();
         d.setTime(d.getTime() + (days * 86400000));
         var expires = "expires=" + d.toUTCString();
-        document.cookie = cname + "=" + cvalue + "; " + expires + ";" + "path=/;"
+        document.cookie = cname + "=" + cvalue + "; " + expires + ";" + "path=/;";
     },
 
     //used to compare variable values to white lists
@@ -221,7 +221,11 @@ var viper = {
         viper.browser.jquery_version = viper.jqueryVersion();
 
         //creating the Snowplow script tag and inserting it at the bottom of the body tag
-        viper.snowplow(window, document, "script", "//d1qbbgtcslwdbx.cloudfront.net/2.5.3/sp.js", "snowplow");
+        if (viper.dom.domain.toLowerCase().indexOf('carbonitedev.com')>-1 || viper.dom.domain.toLowerCase().indexOf('carbonitestage.com')>-1){
+            viper.snowplow(window, document, "script", "//d1qbbgtcslwdbx.cloudfront.net/1fdxnd3sge5g.js", "snowplow"); //Version 2.6.0
+        }else {
+            viper.snowplow(window, document, "script", "//d1qbbgtcslwdbx.cloudfront.net/2.5.3/sp.js", "snowplow");
+        }
 
         //Adding div tag
         var div = document.createElement("div");
