@@ -1,9 +1,16 @@
 //*****************************----Code to Determine if Viper V2 Will be Manually Forced----****************************
+var viperV2 = function(){
+    var s = document.createElement('script');
+    s.type = 'text/javascript';
+    s.src = 'https://s3.amazonaws.com/viper-probe-droid-prod/v2/viperCarbonite.js';
+    document.getElementsByTagName('head')[0].appendChild(s);
+};
+
 if (document.cookie.toLowerCase().indexOf("viper_v2=true")>-1){
-    //launch Viper V2;
-}else if (location.search.toLowerCase().indexOf("viperV2=true")>-1){
+    viperV2();
+}else if (location.search.toLowerCase().indexOf("viperv2=true")>-1){
     document.cookie = "viper_v2=true; path=/";
-    //launch Viper V2;
+    viperV2();
 }else {
 //Run Viper V1
     var utag_data = utag_data || {};
