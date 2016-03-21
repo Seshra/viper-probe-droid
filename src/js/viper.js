@@ -5,6 +5,7 @@ var viperV2 = function(){
     s.src = 'https://s3.amazonaws.com/viper-probe-droid-prod/v2/viperCarbonite.js';
     document.getElementsByTagName('head')[0].appendChild(s);
 };
+var viper={application: "", environment: "", launch: function(profile){}}
 
 
 if  (document.cookie.toLowerCase().indexOf("viper_v2=true")>-1 && location.search.toLowerCase().indexOf("viper_v2=false")>-1){
