@@ -7,11 +7,11 @@ var viperV2 = function(){
 };
 
 
-if  (document.cookie.toLowerCase().indexOf("viper_v2=true")>-1 && location.search.toLowerCase().indexOf("viperv2=false")>-1){
+if  (document.cookie.toLowerCase().indexOf("viper_v2=true")>-1 && location.search.toLowerCase().indexOf("viper_v2=false")>-1){
     document.cookie="viper_v2=;path=/;expires=Thu, 01 Jan 1970 00:00:00 UTC";
 }else if (document.cookie.toLowerCase().indexOf("viper_v2=true")>-1){
     viperV2();
-}else if (location.search.toLowerCase().indexOf("viperv2=true")>-1){
+}else if (location.search.toLowerCase().indexOf("viper_v2=true")>-1){
     document.cookie = "viper_v2=true; path=/";
     viperV2();
 }
