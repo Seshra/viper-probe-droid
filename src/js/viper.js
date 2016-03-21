@@ -5,8 +5,22 @@ var viperV2 = function(){
     s.src = 'https://s3.amazonaws.com/viper-probe-droid-prod/v2/viperCarbonite.js';
     document.getElementsByTagName('head')[0].appendChild(s);
 };
-var viper={application: "", environment: "", launch: function(profile){}}
 
+var viper={
+    application: "",
+    environment: "",
+    launch: function(profile){}
+};
+
+// sets visitors who get
+if (document.domain.toLowerCase().indexOf("carbonitedev.com")>-1 || document.domain.toLowerCase().indexOf("carbonitestage.com")>-1) {
+    (function () {
+        var num = 1 + Math.floor(Math.random() * (100 - 1 + 1));
+        if (num === 1) {
+            document.cookie = "viper_v2=true; path=/";
+        }
+    })();
+}
 
 if  (document.cookie.toLowerCase().indexOf("viper_v2=true")>-1 && location.search.toLowerCase().indexOf("viper_v2=false")>-1){
     document.cookie="viper_v2=;path=/;expires=Thu, 01 Jan 1970 00:00:00 UTC";
