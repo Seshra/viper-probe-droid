@@ -6,12 +6,17 @@ var viperV2 = function(){
     document.getElementsByTagName('head')[0].appendChild(s);
 };
 
-if (document.cookie.toLowerCase().indexOf("viper_v2=true")>-1){
+
+if  (document.cookie.toLowerCase().indexOf("viper_v2=true")>-1 && location.search.toLowerCase().indexOf("viperv2=false")>-1){
+    document.cookie="viper_v2=;path=/;expires=Thu, 01 Jan 1970 00:00:00 UTC";
+}else if (document.cookie.toLowerCase().indexOf("viper_v2=true")>-1){
     viperV2();
 }else if (location.search.toLowerCase().indexOf("viperv2=true")>-1){
     document.cookie = "viper_v2=true; path=/";
     viperV2();
-}else {
+}
+
+if (document.cookie.toLowerCase().indexOf("viper_v2=true")===-1){
 //Run Viper V1
     var utag_data = utag_data || {};
 //*********************************************----Viper Specific Code----**********************************************
