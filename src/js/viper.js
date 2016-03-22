@@ -14,7 +14,7 @@ var viper={
 
 // sets visitors who get
 (function () {
-    var percentOfUsers = 1;
+    var percentOfUsers = 3;
     var num = Math.floor(Math.random() * (100)) +1;
     if (num <= percentOfUsers) {
         document.cookie = "viper_v2=true; path=/";
