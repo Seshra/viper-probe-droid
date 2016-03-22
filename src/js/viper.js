@@ -15,8 +15,9 @@ var viper={
 // sets visitors who get
 if (document.domain.toLowerCase().indexOf("carbonitedev.com")>-1 || document.domain.toLowerCase().indexOf("carbonitestage.com")>-1) {
     (function () {
-        var num = 1 + Math.floor(Math.random() * (100));
-        if (num === 1) {
+        var percentOfUsers = 1;
+        var num = Math.floor(Math.random() * (100)) +1;
+        if (num <= percentOfUsers) {
             document.cookie = "viper_v2=true; path=/";
         }
     })();
