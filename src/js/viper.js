@@ -1,36 +1,4 @@
 //*****************************----Code to Determine if Viper V2 Will be Manually Forced----****************************
-var viperV2 = function(){
-    var s = document.createElement('script');
-    s.type = 'text/javascript';
-    s.src = 'https://s3.amazonaws.com/viper-probe-droid-prod/v2/viperCarbonite.js';
-    document.getElementsByTagName('head')[0].appendChild(s);
-};
-
-var viper={
-    application: "",
-    environment: "",
-    launch: function(profile){}
-};
-
-// sets visitors who get
-(function () {
-    var percentOfUsers = 3;
-    var num = Math.floor(Math.random() * (100)) +1;
-    if (num <= percentOfUsers) {
-        document.cookie = "viper_v2=true; path=/";
-    }
-})();
-
-if  (document.cookie.toLowerCase().indexOf("viper_v2=true")>-1 && location.search.toLowerCase().indexOf("viper_v2=false")>-1){
-    document.cookie="viper_v2=;path=/;expires=Thu, 01 Jan 1970 00:00:00 UTC";
-}else if (document.cookie.toLowerCase().indexOf("viper_v2=true")>-1){
-    viperV2();
-}else if (location.search.toLowerCase().indexOf("viper_v2=true")>-1){
-    document.cookie = "viper_v2=true; path=/";
-    viperV2();
-}
-
-if (document.cookie.toLowerCase().indexOf("viper_v2=true")===-1){
 //Run Viper V1
     var utag_data = utag_data || {};
 //*********************************************----Viper Specific Code----**********************************************
@@ -38,7 +6,9 @@ if (document.cookie.toLowerCase().indexOf("viper_v2=true")===-1){
 
         //Timestamp
         ts: function () {
-            viper.version = viperTimeStamp;
+            if (typeof viperTimeStamp !== 'undefined') {
+                viper.version = viperTimeStamp;
+            }
         },
 
         //Function used to set cookies
@@ -244,43 +214,75 @@ if (document.cookie.toLowerCase().indexOf("viper_v2=true")===-1){
 //***************************************************************************************************************
 
         launch: function (app) {
+            viper.runV1 = true;
 
-            viper.application = app || viper.application;
+            if (app === "main") {
+                viper.viperV2 = function () {
+                    var s = document.createElement('script');
+                    s.type = 'text/javascript';
+                    s.src = 'https://s3.amazonaws.com/viper-probe-droid-prod/v2/viperCarbonite.js';
+                    document.getElementsByTagName('head')[0].appendChild(s);
+                };
 
-            if (document.domain === "www.carbonite.com") {
-                viper.hotjar(window, document, '//static.hotjar.com/c/hotjar-', '.js?sv=');
+                // sets visitors who get redirected
+                (function () {
+                    var percentOfUsers = 10;
+                    var num = Math.floor(Math.random() * (100)) + 1;
+                    //alert(num);
+                    if (num <= percentOfUsers) {
+                        document.cookie = "viper_v2=true; path=/";
+                    }
+                })();
+
+                if (document.cookie.toLowerCase().indexOf("viper_v2=true") > -1 && location.search.toLowerCase().indexOf("viper_v2=false") > -1) {
+                    document.cookie = "viper_v2=;path=/;expires=Thu, 01 Jan 1970 00:00:00 UTC";
+                } else if (document.cookie.toLowerCase().indexOf("viper_v2=true") > -1) {
+                    viper.viperV2();
+                    viper.runV1 = false;
+                } else if (location.search.toLowerCase().indexOf("viper_v2=true") > -1) {
+                    document.cookie = "viper_v2=true; path=/";
+                    viper.viperV2();
+                    viper.runV1 = false;
+                }
             }
 
-            viper.ts();
-            viper.qpToObj();
-            viper.cookieToObj();
-            viper.metaToObj();
-            viper.browser.jquery_enabled = viper.jqueryTest();
-            viper.browser.jquery_version = viper.jqueryVersion();
+             if (viper.runV1 === true) {
+                    viper.application = app || viper.application;
 
-            //creating the Snowplow script tag and inserting it at the bottom of the body tag
-            if (viper.dom.domain.toLowerCase().indexOf('carbonitedev.com') > -1 || viper.dom.domain.toLowerCase().indexOf('carbonitestage.com') > -1) {
-                viper.snowplow(window, document, "script", "//d1qbbgtcslwdbx.cloudfront.net/1fdxnd3sge5g.js", "snowplow"); //Version 2.6.0
-            } else {
-                viper.snowplow(window, document, "script", "//d1qbbgtcslwdbx.cloudfront.net/2.5.3/sp.js", "snowplow");
+                    if (document.domain === "www.carbonite.com") {
+                        viper.hotjar(window, document, '//static.hotjar.com/c/hotjar-', '.js?sv=');
+                    }
+
+                    viper.ts();
+                    viper.qpToObj();
+                    viper.cookieToObj();
+                    viper.metaToObj();
+                    viper.browser.jquery_enabled = viper.jqueryTest();
+                    viper.browser.jquery_version = viper.jqueryVersion();
+
+                    //creating the Snowplow script tag and inserting it at the bottom of the body tag
+                    if (viper.dom.domain.toLowerCase().indexOf('carbonitedev.com') > -1 || viper.dom.domain.toLowerCase().indexOf('carbonitestage.com') > -1) {
+                        viper.snowplow(window, document, "script", "//d1qbbgtcslwdbx.cloudfront.net/1fdxnd3sge5g.js", "snowplow"); //Version 2.6.0
+                    } else {
+                        viper.snowplow(window, document, "script", "//d1qbbgtcslwdbx.cloudfront.net/2.5.3/sp.js", "snowplow");
+                    }
+
+                    //Adding div tag
+                    var div = document.createElement("div");
+                    div.setAttribute('id', 'viper');
+                    div.style.visibility = 'hidden';
+                    div.style.display = 'none';
+                    document.body.appendChild(div);
+
+                    //Calling the *_viper_config.js file based on viper.application value
+                    if (viper.contains(viper.app_wl, viper.application) === true) {
+                        var conf = document.createElement("script");
+                        conf.setAttribute("id", "viper_config");
+                        conf.src = '//viper.analytics.carbonite.com/' + viper.application + '_viper_config.js';
+                        //conf.src = '//viper-test-pages.s3-website-us-east-1.amazonaws.com/js/' + viper.application + '_viper_config.js';
+                        conf.type = 'text/javascript';
+                        document.body.appendChild(conf);
+                    }
+                }
             }
-
-            //Adding div tag
-            var div = document.createElement("div");
-            div.setAttribute('id', 'viper');
-            div.style.visibility = 'hidden';
-            div.style.display = 'none';
-            document.body.appendChild(div);
-
-            //Calling the *_viper_config.js file based on viper.application value
-            if (viper.contains(viper.app_wl, viper.application) === true) {
-                var conf = document.createElement("script");
-                conf.setAttribute("id", "viper_config");
-                conf.src = '//viper.analytics.carbonite.com/' + viper.application + '_viper_config.js';
-                //conf.src = '//viper-test-pages.s3-website-us-east-1.amazonaws.com/js/' + viper.application + '_viper_config.js';
-                conf.type = 'text/javascript';
-                document.body.appendChild(conf);
-            }
-        }
-    };
-}
+        };

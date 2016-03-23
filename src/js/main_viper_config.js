@@ -16,7 +16,7 @@ if (viper.dom.domain.indexOf("carbonite.com") > -1 && viper.dom.domain.indexOf("
     viper.sp_cookieDomain = ".carboniteinc.com";
     viper.sp_cookieName = "sp";
     viper.environment = viper.environment || "dev";
-} else if (viper.url.indexOf("observepoint-test-pages") > -1) {
+} else if (viper.dom.url.indexOf("observepoint-test-pages") > -1) {
     viper.sp_appId = 'observepoint-tests';
     viper.sp_platform = 'web';
     viper.sp_cookieDomain = ".carboniteinc.com";
