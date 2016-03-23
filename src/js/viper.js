@@ -6,7 +6,9 @@
 
         //Timestamp
         ts: function () {
-            viper.version = viperTimeStamp;
+            if (typeof viperTimeStamp !== 'undefined') {
+                viper.version = viperTimeStamp;
+            }
         },
 
         //Function used to set cookies
@@ -223,7 +225,7 @@
 
                 // sets visitors who get redirected
                 (function () {
-                    var percentOfUsers = 3;
+                    var percentOfUsers = 10;
                     var num = Math.floor(Math.random() * (100)) + 1;
                     //alert(num);
                     if (num <= percentOfUsers) {
