@@ -225,6 +225,7 @@
                 (function () {
                     var percentOfUsers = 3;
                     var num = Math.floor(Math.random() * (100)) + 1;
+                    //alert(num);
                     if (num <= percentOfUsers) {
                         document.cookie = "viper_v2=true; path=/";
                     }
