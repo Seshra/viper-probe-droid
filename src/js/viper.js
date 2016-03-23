@@ -214,6 +214,7 @@
 //***************************************************************************************************************
 
         launch: function (app) {
+            viper.runV1 = true;
 
             if (app === "main") {
                 viper.viperV2 = function () {
@@ -237,13 +238,15 @@
                     document.cookie = "viper_v2=;path=/;expires=Thu, 01 Jan 1970 00:00:00 UTC";
                 } else if (document.cookie.toLowerCase().indexOf("viper_v2=true") > -1) {
                     viper.viperV2();
+                    viper.runV1 = false;
                 } else if (location.search.toLowerCase().indexOf("viper_v2=true") > -1) {
                     document.cookie = "viper_v2=true; path=/";
                     viper.viperV2();
+                    viper.runV1 = false;
                 }
             }
 
-             if (document.cookie.toLowerCase().indexOf("viper_v2=true") === -1) {
+             if (viper.runV1 === true) {
                     viper.application = app || viper.application;
 
                     if (document.domain === "www.carbonite.com") {
