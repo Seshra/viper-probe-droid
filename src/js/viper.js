@@ -231,9 +231,12 @@
                     //alert(num);
                     if (num <= percentOfUsers) {
                         document.cookie = "viper_v2=true; path=/";
+                    } else{
+                        document.cookie = "viper_v2=false; path=/";
                     }
                 })();
 
+                // only delete cookie if false set in query string
                 if (document.cookie.toLowerCase().indexOf("viper_v2=true") > -1 && location.search.toLowerCase().indexOf("viper_v2=false") > -1) {
                     document.cookie = "viper_v2=;path=/;expires=Thu, 01 Jan 1970 00:00:00 UTC";
                 } else if (document.cookie.toLowerCase().indexOf("viper_v2=true") > -1) {
