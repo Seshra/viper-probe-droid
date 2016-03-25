@@ -261,12 +261,8 @@
                     viper.browser.jquery_version = viper.jqueryVersion();
 
                     //creating the Snowplow script tag and inserting it at the bottom of the body tag
-                    if (viper.dom.domain.toLowerCase().indexOf('carbonitedev.com') > -1 || viper.dom.domain.toLowerCase().indexOf('carbonitestage.com') > -1) {
-                        viper.snowplow(window, document, "script", "//d1qbbgtcslwdbx.cloudfront.net/1fdxnd3sge5g.js", "snowplow"); //Version 2.6.0
-                    } else {
-                        viper.snowplow(window, document, "script", "//d1qbbgtcslwdbx.cloudfront.net/2.5.3/sp.js", "snowplow");
-                    }
-
+                    viper.snowplow(window, document, "script", "//d1qbbgtcslwdbx.cloudfront.net/1fdxnd3sge5g.js", "snowplow"); //Version 2.6.0
+                 
                     //Adding div tag
                     var div = document.createElement("div");
                     div.setAttribute('id', 'viper');
