@@ -224,29 +224,31 @@
                     document.getElementsByTagName('head')[0].appendChild(s);
                 };
 
-                // sets visitors who get redirected
-                (function () {
+                // if no cookie... set one
+                if (document.cookie.toLowerCase().indexOf("viper_v2" < 0)) {
+                    // sets visitors who get redirected
                     var percentOfUsers = 50;
                     var num = Math.floor(Math.random() * (100)) + 1;
                     //alert(num);
                     if (num <= percentOfUsers) {
                         document.cookie = "viper_v2=true; path=/";
-                    } else{
+                    } else {
                         document.cookie = "viper_v2=false; path=/";
                     }
-                })();
-
-                // only delete cookie if false set in query string
-                if (document.cookie.toLowerCase().indexOf("viper_v2=true") > -1 && location.search.toLowerCase().indexOf("viper_v2=false") > -1) {
-                    document.cookie = "viper_v2=;path=/;expires=Thu, 01 Jan 1970 00:00:00 UTC";
-                } else if (document.cookie.toLowerCase().indexOf("viper_v2=true") > -1) {
-                    viper.viperV2();
-                    viper.runV1 = false;
-                } else if (location.search.toLowerCase().indexOf("viper_v2=true") > -1) {
+                } 
+                    
+                // force value in query string
+                if (location.search.toLowerCase().indexOf("viper_v2=true") > -1) {
                     document.cookie = "viper_v2=true; path=/";
+                } else if (location.search.toLowerCase().indexOf("viper_v2=false") > -1) {
+                    document.cookie = "viper_v2=false; path=/";
+                }
+                
+                // run v2 if cookie set to true
+                if (document.cookie.toLowerCase().indexOf("viper_v2=true") > -1) {
                     viper.viperV2();
                     viper.runV1 = false;
-                }
+                } 
             }
 
              if (viper.runV1 === true) {
