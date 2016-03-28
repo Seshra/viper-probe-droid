@@ -226,7 +226,7 @@
 
                 // sets visitors who get redirected
                 (function () {
-                    var percentOfUsers = 50;
+                    var percentOfUsers = 100;
                     var num = Math.floor(Math.random() * (100)) + 1;
                     //alert(num);
                     if (num <= percentOfUsers) {
