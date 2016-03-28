@@ -227,7 +227,7 @@
                 // if no cookie... set one
                 if (document.cookie.toLowerCase().indexOf("viper_v2") < 0) {
                     // sets visitors who get redirected
-                    var percentOfUsers = 50;
+                    var percentOfUsers = 100;
                     var num = Math.floor(Math.random() * (100)) + 1;
                     //alert(num);
                     if (num <= percentOfUsers) {
