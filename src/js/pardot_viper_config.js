@@ -16,7 +16,7 @@ window.snowplow('trackPageView', false, null);
     window.snowplow("trackUnstructEvent", {
                 schema : "iglu:com.carbonite/js_error/jsonschema/1-0-0",
                 data : {
-                    timeStamp: new Date(),
+                    time_stamp: new Date(),
                     js_url: url,
                     line_number: lineNumber,
                     error_msg: errorMsg

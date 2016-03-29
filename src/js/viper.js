@@ -98,7 +98,7 @@ var viper = {
     application : "",
     environment : "",
     qs_wl : ["environment","utm_source","utm_medium","utm_campaign","utm_content","Category","Page_ID"],
-    app_wl : ["mailstore","pardot","test-pardot"],
+    app_wl : ["mailstore","pardot","test-pardot", "main"],
 
 //***************************************************************************************************************
 
@@ -128,7 +128,7 @@ var viper = {
         if (viper.contains(viper.app_wl, viper.application) === true) {
             var conf = document.createElement("script");
             conf.setAttribute("id", "viper_config");
-            conf.src = '//viper.analytics.carbonite.com/' + viper.application + '_viper_config.js';
+            conf.src = '../js/' + viper.application + '_viper_config.js';
             ///conf.src = '//viper-test-pages.s3-website-us-east-1.amazonaws.com/js/' + viper.application + '_viper_config.js';
             conf.type = 'text/javascript';
             document.body.appendChild(conf);
