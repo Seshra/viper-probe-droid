@@ -227,20 +227,11 @@
                 // if no cookie... set one
                 if (document.cookie.toLowerCase().indexOf("viper_v2") < 0) {
                     // sets visitors who get redirected
-                    var percentOfUsers = 100;
-                    var num = Math.floor(Math.random() * (100)) + 1;
-                    //alert(num);
-                    if (num <= percentOfUsers) {
-                        document.cookie = "viper_v2=true; path=/";
-                    } else {
-                        document.cookie = "viper_v2=false; path=/";
-                    }
+                    document.cookie = "viper_v2=true; path=/";
                 } 
                     
                 // force value in query string
-                if (location.search.toLowerCase().indexOf("viper_v2=true") > -1) {
-                    document.cookie = "viper_v2=true; path=/";
-                } else if (location.search.toLowerCase().indexOf("viper_v2=false") > -1) {
+               if (location.search.toLowerCase().indexOf("viper_v2=false") > -1) {
                     document.cookie = "viper_v2=false; path=/";
                 }
                 
