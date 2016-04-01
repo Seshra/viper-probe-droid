@@ -75,59 +75,40 @@ Passing variables and data via this object can be accomplished using standard JS
 
 
 
-#####**Step 3 - Adding the Viper Parameters for Tealium Functionality**
+#####**Step 3 - Calling the Viper Launch code**
 
-The addition of the Tealium parameters is required, and can be placed anywhere on the page as long as it is placed after the viper.js mentioned above, and before the "viper.launch()" code mentioned in the next section.  This is necessary because the parent object ("viper.xxx") is declared from within the viper.js file itself and is needed before the "viper.launch()" runs.  The addition of these parameters consists of the following code:
+The code in this final step is what actually fires all of the analytics code, including Tealium and Snowplow.  This also calls helper files that set up and conversions that will be tracked on that page.  You'll notice the "main" inside the parenthesis.  This is the designator for which Tealium profile to use on that page, as well as which helper file is to be included on that page.
+The launch code looks like this:
+ 
+ ````bash
+     <script type="text/javascript">
+ 
+ 	    viper.launch("main");
+ 
+     </script>
+ ````
 
-````bash
-    <script type="text/javascript">
-
-        viper.application = "mailstore";
-        viper.environment = "dev/qa/prod";
-
-    </script>
-````
-
-The "viper.application" will not change as that is the location in Tealium where all of the Mailstore analytics tags will be stored.
-
-The viper.environment may change depending on the type of page where the code is to be placed.  For example, if you have a staging environment that you use for pre-production testing, you will want to use the "dev" or "qa" environment.  For the Production environment, you will want to use "prod".
-
-
-
-
-#####**Step 4 - Calling the Tealium Script**
-
-The code in this final step is what actually places the Tealium script on the page and makes the call to Tealium’s servers.  This is where the analytics code loads.  In the following code, there are no parameters that need to be set as all of the parameters were set prior to this code.  The launch code looks like this:
-
-````bash
-    <script type="text/javascript">
-
-	    viper.launch();
-
-    </script>
-````
-
-Alternately, you can combine step 3 and 4 into one set of code, which would look like this:
-
-````bash
-    <script type="text/javascript">
-
-        viper.application = "mailstore";
-        viper.environment = "prod";
-        viper.launch();
-
-    </script>
-````
-
-This "viper.launch()" will generate and place a `<div>` tag in the page code, just above the closing Body tag (`</body>`).  It will also create a `<script>` tag that calls the Tealium script from inside this new `<div>` tag.
+The determination of the environment (dev or prod) is done automatically in Viper, so you do not need to specify which on will be used on the page.
 
 
 
 ####B.  Implementing Enhancements for Analytics Tracking:
 
-In order for the Carbonite Analytics application to properly track links on your web pages, you will need to add a unique **"id"** attribute to each link.  This will allow the application to determine which links were clicked on a particular page.
+In order for the Carbonite Analytics application to properly track links on your web pages, it is recommended that a unique **"id"** attribute be added to each link.  This will allow the application to determine which links were clicked on a particular page.
 
+##Deployment
+This project used to be deployed via travis automatically upon merge.  Now we will manually deploy this old version until the new v2 viper is released.
 
+To deploy, you will need to build the project with:
+
+  ```gulp build```
+
+Then you will need to deploy the built js file to s3.
+
+* Use the AWS cli to fetch a set of temporary BAP credentials with mfa.  [This script](https://github.com/asagage/aws-mfa-script) is recommended. 
+* Copy the file to s3
+  ```aws s3 sync ./dist s3://viper-probe-droid-prod/```
+  
 # LICENSE
 Copyright (c) 2015, Robert G. Johnson Jr. @Oakensoul, Apache Version 2.0
 Copyright (c) 2015, Andrew C. Rose @RongWay, Apache Version 2.0
@@ -138,3 +119,5 @@ Copyright (c) 2015, [Carbonite](http://www.carbonite.com), Apache Version 2.0
 
 [license]: http://opensource.org/licenses/Apache-2.0
 [license-image]: https://img.shields.io/hexpm/l/plug.svg
+
+Updated: November 10, 2015
